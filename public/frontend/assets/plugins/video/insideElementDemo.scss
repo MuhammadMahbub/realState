@@ -1,0 +1,57 @@
+@import "../../scss/variables";
+
+#main {
+  section {
+    height: 450px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    > .text {
+      position: relative;
+      top: 57.5%;
+      transform: translateY(-50%);
+      z-index: 2;
+
+      > {
+        h1 {
+          font-size: 42px;
+          color: $white;
+          border-bottom: 0;
+          margin: 0 0 10px;
+        }
+
+        h3 {
+          color: $white;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  text-align: left;
+}
+
+#more {
+  margin: 20px auto 48px;
+}
+
+@media (max-width: 991px) {
+  #main section > .text {
+    position: relative;
+    top: 50.5%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  #main section > .text h1 {
+    font-size: 2rem !important;
+  }
+}
+
+#main section > .text h1 {
+  font-size: 2.5rem;
+  font-weight: 400;
+}

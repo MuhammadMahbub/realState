@@ -1,0 +1,104 @@
+/*----- Label -----*/
+
+.label {
+	display: inline;
+	padding: .2em .6em .2em;
+	font-size: 75%;
+	color: $white;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+	display: inline-block;
+	margin-bottom: .5rem;
+}
+
+.label-pill {
+	padding-right: .6em;
+	padding-left: .6em;
+	border-radius: 10rem;
+}
+
+.label-info {
+	background-color: $info !important;
+}
+
+.label-danger {
+	background-color: $danger !important;
+}
+
+.label-warning {
+	background-color: $yellow !important;
+}
+
+.label-success {
+	background-color: $success !important;
+}
+
+.label-purple {
+	background-color: $purple !important;
+}
+
+.label-pink {
+	background-color: $pink !important;
+}
+
+.label-secondary {
+	background-color: $secondary;
+	}
+
+.label {
+	&.arrowed {
+		position: relative;
+		margin-left: 9px;
+	}
+	&.arrowed-in {
+		position: relative;
+		margin-left: 9px;
+		&:before {
+			display: inline-block;
+			content: "";
+			position: absolute;
+			left: -14px;
+			top: 0;
+			border: 9px solid transparent;
+			border-width: 9px 7px;
+		}
+	}
+	&.arrowed:before {
+		display: inline-block;
+		content: "";
+		position: absolute;
+		left: -14px;
+		top: 0;
+		border: 9px solid transparent;
+		border-width: 10px 7px;
+	}
+	&.arrowed-in-right,
+	&.arrowed-right {
+		position: relative;
+		margin-right: 9px;
+		border-radius: 0 2px 2px 0;
+	}
+}
+
+.label-info.arrowed:before {
+	border-right-color: $info !important;
+}
+
+.label-danger.arrowed:before {
+	border-right-color: $danger !important;
+}
+
+.label-success.arrowed:before {
+	border-right-color: $success !important;
+}
+
+.label-warning.arrowed:before {
+	border-right-color: $yellow !important;
+}
+
+.btn .badge {
+	position: relative;
+	top: -1px;
+}

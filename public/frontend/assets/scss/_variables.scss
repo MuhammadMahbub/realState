@@ -1,0 +1,85 @@
+$background:var(--primary-bg-background);
+$color:#070510;
+
+/*Color variables*/
+
+$primary: var(--primary-bg-color);
+$primary-hover: var(--primary-bg-hover);
+$primary-border: var(--primary-bg-border);
+$primary-transparent: var(--primary-bg-transparentcolor);
+$secondary: var(--secondary-color);
+$secondary-hover : var(--secondary-hover);
+$secondary-transparent:var(--secondary-transparent);
+$secondary-shadow:var(--secondary-shadow);
+$gradient-color:linear-gradient(120deg, #0f75ff 60%, var(--secondary) 100%);
+$primary-gradient:linear-gradient(87deg,  var(--primary-bg-color), var(--primary-10) 100%);
+$gradient       :linear-gradient(87deg, var(--primary-09), var(--primary-10) 100%) ;
+$primary-1:var(--primary-01);
+$primary-09:var(--primary-09);
+$primary-08:var(--primary-08);
+$primary-10:var(--primary-10);
+$primary-02:var(--primary-02);
+$primary-04:var(--primary-04);
+$primary-03:var(--primary-03);
+$secondary-08:var(--secondary-08);
+$secondary-03:var(--secondary-03);
+$info:#0ab2e6;
+$success:#27c781;
+$warning:#ff8819;
+$danger:#ff382b;
+$blue:#467fcf;
+$yellow:#ffa22b;
+$teal:#05e6e6;
+$pink:#f13c79;
+$purple:#604dd8;
+$dark:#1d2124;
+$orange:#f77823;
+$indigo:#6574cd;
+$cyan:#00f7ff;
+$white:#fff;
+$black:#000;
+$border:#e6ebf1;
+
+/***********dark-theme**************/
+
+$dark-mode: var(--dark-color);
+$dark-bg: var(--dark-color2);
+$dark-border: rgba(255,255,255,0.2);
+$dark-color:#fff;
+$dark-shadow:#1c273c1a;
+$dark-shadow2:#616366;
+
+/***********transparent-theme**************/
+
+$transparent-mode: var(--transparent-color);
+$transparent-bg: var(--transparent-color2);
+$transparent-border: rgba(255,255,255,0.2);
+$transparent-color:#fff;
+$transparent-shadow:#1c273c1a;
+
+/*white variables*/
+$white-1:rgba(255, 255, 255, 0.1);
+$white-2:rgba(255, 255, 255, 0.2);
+$white-3:rgba(255, 255, 255, 0.3);
+$white-4 :rgba(255, 255, 255, 0.4);
+$white-5 :rgba(255, 255, 255, 0.5);
+$white-6 :rgba(255, 255, 255, 0.6);
+$white-7 :rgba(255, 255, 255, 0.7);
+$white-8 :rgba(255, 255, 255, 0.8);
+$white-9 :rgba(255, 255, 255, 0.9);
+$white-05:rgba(255, 255, 255, 0.05);
+$white-08:rgba(255, 255, 255, 0.08);
+$white-75:rgba(255, 255, 255, 0.075);
+
+/*black variables*/
+$black-1:rgba(0, 0, 0, 0.1);
+$black-2:rgba(0, 0, 0, 0.2);
+$black-3:rgba(0, 0, 0, 0.3);
+$black-4:rgba(0, 0, 0, 0.4);
+$black-5:rgba(0, 0, 0, 0.5);
+$black-6:rgba(0, 0, 0, 0.6);
+$black-7:rgba(0, 0, 0, 0.7);
+$black-8:rgba(0, 0, 0, 0.8);
+$black-9:rgba(0, 0, 0, 0.9);
+$black-05:rgba(0, 0, 0, 0.05);
+
