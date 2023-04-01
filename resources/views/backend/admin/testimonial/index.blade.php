@@ -20,7 +20,7 @@
 
  <!-- White Box -->
  <div class="white-box">
-    <h5>List Of All Categories</h5>
+    <h5>List Of All Testimonials</h5>
     {{-- <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
         <select class="form-select shadow-none row border-top">
             <option>View All</option>
