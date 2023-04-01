@@ -7,6 +7,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyCategoryController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PropertySpecificationController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
     //property management
     Route::resource('property_category', PropertyCategoryController::class);
     Route::resource('property_type', PropertyTypeController::class);
+    Route::resource('property_specification', PropertySpecificationController::class);
     Route::resource('property', PropertyController::class);
 
     //news management

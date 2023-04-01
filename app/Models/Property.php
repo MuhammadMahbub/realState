@@ -18,4 +18,6 @@ class Property extends Model
     public function relationwithPropertyCategory(){
         return $this->belongsTo(PropertyCategory::class,'category_id');
     }
+
+    
 }

@@ -50,6 +50,7 @@
                         <li><a class="dropdown-item" href="{{ route('property_category.index') }}">Property Category</a></li>
                         <li><a class="dropdown-item" href="{{ route('property_type.index') }}">Property Type</a></li>
                         <li><a class="dropdown-item" href="{{ route('property.index') }}">Property List</a></li>
+                        <li><a class="dropdown-item" href="{{ route('property_specification.index') }}">Property Specification</a></li>
                     </ul>
                 </li>
 
