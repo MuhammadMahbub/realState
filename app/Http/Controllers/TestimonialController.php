@@ -29,7 +29,32 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=> 'required',
+            'description'=> 'required',
+            'image'=> 'required|image',
+            'rating'=> 'required|numeric'
+        ]);
+
+        if($request->hasFile('image'))
+        {
+            $image    = $request->file('image');
+            $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
+            $location = 'backend/testimonial/';
+            $last_image = $location.$imag_ext;
+            $image->move( $location, $imag_ext);
+        }
+
+        $testimonial = new Testimonial();
+
+        $testimonial->name = $request->name;
+        $testimonial->description = $request->description;
+        $testimonial->rating = $request->rating;
+        $testimonial->image = $last_image;
+
+        $testimonial->save();
+
+        return back()->with('success', 'Testimonial Added');
     }
 
     /**
@@ -51,16 +76,42 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Testimonial $testimonial)
+    public function update(Request $request,  $id)
     {
-        //
+        $request->validate([
+            'name'=> 'required',
+            'description'=> 'required',
+            'image'=> 'image',
+            'rating'=> 'required|numeric'
+        ]);
+
+        if($request->hasFile('image'))
+        {
+            $image    = $request->file('image');
+            $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
+            $location = 'backend/testimonial/';
+            $last_image = $location.$imag_ext;
+            $image->move( $location, $imag_ext);
+        }
+
+        $testimonial = Testimonial::findOrFail($id);
+
+        $testimonial->name = $request->name;
+        $testimonial->description = $request->description;
+        $testimonial->rating = $request->rating;
+        $testimonial->image = $last_image;
+
+        $testimonial->save();
+
+        return back()->with('success', 'Testimonial Updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Testimonial $testimonial)
+    public function destroy($id)
     {
-        //
+        Testimonial::findOrFail($id)->delete();
+        return back()->with('success', 'Testimonial Deleted');
     }
 }

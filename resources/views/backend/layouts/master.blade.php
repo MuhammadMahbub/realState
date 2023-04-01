@@ -1,5 +1,7 @@
+
 @include('backend.inc.header')
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
@@ -16,6 +18,7 @@
         <div class="page-wrapper">
         <!-- Container fluid  -->
         <!-- ============================================================== -->
+        <!-- Toastr -->
         <div class="container-fluid">
             <br/>
             

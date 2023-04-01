@@ -12,10 +12,10 @@ class Property extends Model
     protected $guarded = ['id'];
 
     public function relationwithPropertyType(){
-        return $this->hasOne(PropertyType::class,'id', 'property_type_id');
+        return $this->belongsTo(PropertyType::class, 'property_type_id');
     }
 
     public function relationwithPropertyCategory(){
-        return $this->hasOne(PropertyCategory::class,'id', 'category_id');
+        return $this->belongsTo(PropertyCategory::class,'category_id');
     }
 }

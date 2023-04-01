@@ -22,8 +22,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <title>@yield('title')</title>
-    <!-- Toastr -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    
     <link rel="canonical" href="" />
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="">

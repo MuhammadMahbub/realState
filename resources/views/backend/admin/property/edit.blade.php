@@ -115,8 +115,8 @@
             </div>
             <div class="form-group">
                 <label for="">Specification</label>
-                <textarea name="specification" {{ $property->specification }} id="" cols="30" rows="10" class="form-control"></textarea>
-                @error('property_id')
+                <textarea name="specification"  id="" cols="30" rows="10" class="form-control">{{ $property->specification }}</textarea>
+                @error('specification')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>

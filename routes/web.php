@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsCategoryController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyCategoryController;
 use App\Http\Controllers\PropertyController;
@@ -45,6 +47,10 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
     Route::resource('property_category', PropertyCategoryController::class);
     Route::resource('property_type', PropertyTypeController::class);
     Route::resource('property', PropertyController::class);
+
+    //news management
+    Route::resource('news_category', NewsCategoryController::class);
+    Route::resource('news', NewsController::class);
 
     // testimonial 
     Route::resource('testimonial', TestimonialController::class);

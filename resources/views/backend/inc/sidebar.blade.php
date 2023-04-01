@@ -65,6 +65,19 @@
                     <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-toggle"
                         aria-expanded="false" data-bs-toggle="dropdown">
                         <i class="fa fa-users" aria-hidden="true"></i>
+                        <span class="hide-menu">News</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('news_category.index') }}">News Category</a></li>
+                        <li><a class="dropdown-item" href="{{ route('news.index') }}">News</a></li>
+                        <li><a class="dropdown-item" href="tenants.html">Comments</a></li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item dropdown">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link dropdown-toggle"
+                        aria-expanded="false" data-bs-toggle="dropdown">
+                        <i class="fa fa-users" aria-hidden="true"></i>
                         <span class="hide-menu">Users Management</span>
                     </a>
                     <ul class="dropdown-menu">
