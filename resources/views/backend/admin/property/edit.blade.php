@@ -3,27 +3,23 @@
 @section('title','Admin Dashboard - Property Create')
 
 @section('breadcrumb')
-<div class="row">
-    <div class="col-lg-10">
-        <h4><strong>Welcome Back, {{ Auth::user()->name ?? 'N/A' }}</strong></h4>
-        <p>Lorem ipsum c'iest paris du saint germain.</p>
-    </div>
-    <div class="col-lg-2">
-        <div class="text-right">
-        <a class="btn btn-primary"><i class="fa fa-building"></i> Add New Property</a>
-        </div>
-    </div>
+<div class="page-titles">
+    <ol class="breadcrumb">
+        <li><h5 class="bc-title">Property </h5></li>
+    </ol>
+    <a href="payments.html" class="btn btn-primary btn-sm">Wallet Ballance: $500</a>
+    <a href="{{ route('property.index') }}" class="btn btn-primary btn-sm"> <i data-feather="arrow-left"></i> Back</a>
 </div>
 @endsection
 
 @section('content')
 
-    <div class="card white-box">
+    <div class="card">
         <form action="{{ route('property.update', $property->id) }}" method="post" class="form-group" enctype="multipart/form-data">
             @csrf
             @method("PUT")
-            <div class="form-group">
-                <label for="">Property Category</label>
+            <div class="form-group mt-3">
+                <label for="">Property Category<span class="text-danget">*</span></label>
                 <select name="category_id" id="" class="form-control">
                     <option value selected>--select one--</option>
                     @foreach ($categories as $category)
@@ -36,7 +32,7 @@
             </div>
             
             <div class="form-group">
-                <label for="">Property Type</label>
+                <label for="">Property Type<span class="text-danget">*</span></label>
                 <select name="property_type_id" id="" class="form-control">
                     <option value selected>--select one--</option>
                     @foreach ($types as $type)
@@ -54,7 +50,7 @@
                 <img src="{{ asset($property->thumbnail_image) }}" width="200">
             </div>
             <div class="form-group">
-                <label> Thumbnail Image </label>
+                <label> Thumbnail Image <span class="text-danget">*</span></label>
                 <input type="file" class="form-control" name="thumbnail_image" onchange="document.getElementById('thumbnail_image').src=window.URL.createObjectURL(this.files[0])"/>
 
                 <img id="thumbnail_image" width="200">
@@ -86,7 +82,7 @@
             </div>
 
             <div class="form-group">
-                <label for="">Short Title</label>
+                <label for="">Short Title<span class="text-danget">*</span></label>
                 <input type="text" value="{{ $property->short_title }}" name="short_title" placeholder="Short Title" class="form-control">  
                 @error('short_title')
                     <p class="text-danger">{{ $message }}</p>
@@ -100,7 +96,7 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="">Price</label>
+                <label for="">Price<span class="text-danget">*</span></label>
                 <input type="number" value="{{ $property->price }}"  name="price" placeholder="Price" class="form-control">  
                 @error('price')
                     <p class="text-danger">{{ $message }}</p>
@@ -114,13 +110,13 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="">Specification</label>
-                <textarea name="specification"  id="" cols="30" rows="10" class="form-control">{{ $property->specification }}</textarea>
-                @error('specification')
+                <label for="">Description</label>
+                <textarea name="description"  id="editor__{{ $property->id }}" cols="30" rows="10" class="form-control">{{ $property->description }}</textarea>
+                @error('description')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <input type="checkbox" name="isFavorite" id="isFavorite" {{ $property->isFavorite == 1 ? 'checked':'' }}>
                 <label for="isFavorite" class="ms-4">Is Favourite</label>
                 @error('isFavorite')
@@ -138,8 +134,7 @@
 
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
         </form>
     </div>
@@ -147,6 +142,11 @@
 @endsection
 
 @push('scripts')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor__{{ $property->id }}' ) )
+</script>
+
 <script>
     $(document).ready(function(){
         $("#add_btn").click(function(){

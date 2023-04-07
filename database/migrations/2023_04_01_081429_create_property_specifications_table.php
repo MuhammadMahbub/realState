@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('property_specifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('property_id');
-            $table->text('icon')->nullable();
-            $table->string('specification');
+            $table->text('icon');
+            $table->text('specification');
             $table->timestamps();
         });
     }

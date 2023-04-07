@@ -55,16 +55,19 @@
                                     <input type="password" name="password">
                                     <label>Password*</label>
                                 </div>
-                                @error('password')
+                                {{-- @error('password')
                                     <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                                <div class="passwd">
+                                @enderror --}}
+                                <div class="passwd mt-2">
                                     <input type="password" name="password_confirmation">
                                     <label>Confirm Password*</label>
                                 </div>
-                                <div class="name">
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                <div class="name mt-2">
                                     <select name="role" id="select-Categories12" class="form-control form-select select2 br-tr-md-0 br-br-md-0">
-                                        <option selected>Register as*</option>
+                                        <option selected value="">Register as*</option>
                                         <option value="2">Agent</option>
                                         <option value="3">Tenant</option>
                                         <option value="4">Landlord</option>
@@ -75,8 +78,8 @@
                                 @error('role')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                                <div class="submit">
-                                    <button class="btn btn-primary" type="submit">Register</button>
+                                <div class="submit mt-2">
+                                    <button class="btn btn-primary w-100" type="submit">Register</button>
                                 </div>
                                 <p class="text-dark mb-0">Already have an account?<a href="{{ route('login') }}" class="text-primary mx-1">Sign In</a></p>
                             </form>

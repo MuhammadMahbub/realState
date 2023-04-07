@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Property;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 
@@ -81,7 +82,13 @@ class PropertyTypeController extends Controller
      */
     public function destroy( $id)
     {
-        PropertyType::findOrFail($id)->delete();
-        return back()->with('success', 'Property Type Deleted');
+        $property = Property::where('property_type_id', $id)->get();
+
+        if($property){
+            return back()->with('fail', 'Property Exists under this Type');
+        }else{
+            PropertyType::findOrFail($id)->delete();
+            return back()->with('success', 'Property Type Deleted');
+        }
     }
 }

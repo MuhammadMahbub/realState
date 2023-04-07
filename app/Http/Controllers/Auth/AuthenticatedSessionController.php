@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use PhpParser\Node\Stmt\Return_;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,49 +32,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
 
         if(Auth()->user()->role == 1){
-            if(Auth()->user()->status == 1){
-                return redirect()->intended(route('admin.dashboard'));
-            }else{
-                return back()->with('fail', 'Your Request in Pending');
-            }
+            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
         }
         elseif(Auth()->user()->role == 2){
-            if(Auth()->user()->status == 1){
-                return redirect()->intended(route('agent.dashboard'));
-            }else{
-                return back()->with('fail', 'Your Request in Pending');
-            }
+            return redirect()->intended(RouteServiceProvider::AGENT_HOME);
         }
         elseif(Auth()->user()->role == 3){
-            if(Auth()->user()->status == 1){
-                return redirect()->intended(route('tenant.dashboard'));
-            }else{
-                return back()->with('fail', 'Your Request in Pending');
-            }
+            return redirect()->intended(RouteServiceProvider::TENANT_HOME);
         }
         elseif(Auth()->user()->role == 4){
-            if(Auth()->user()->status == 1){
-                return redirect()->intended(route('landlord.dashboard'));
-            }else{
-                return back()->with('fail', 'Your Request in Pending');
-            }
+            return redirect()->intended(RouteServiceProvider::LANDLORD_HOME);
         }
         elseif(Auth()->user()->role == 5){
-            if(Auth()->user()->status == 1){
-                return redirect()->intended(route('contractor.dashboard'));
-            }else{
-                return back()->with('fail', 'Your Request in Pending');
-            }
+            return redirect()->intended(RouteServiceProvider::CONTRACTOR_HOME);
         }
         elseif(Auth()->user()->role == 6){
-            if(Auth()->user()->status == 1){
-                return redirect()->intended(route('service_provider.dashboard'));
-            }else{
-                return back()->with('fail', 'Your Request in Pending');
-            }
+            return redirect()->intended(RouteServiceProvider::SERVICE_PROVIDER_HOME);
         }
         
     }

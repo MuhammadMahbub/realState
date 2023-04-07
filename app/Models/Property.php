@@ -19,5 +19,8 @@ class Property extends Model
         return $this->belongsTo(PropertyCategory::class,'category_id');
     }
 
+    public function relationwithPropertySpecification(){
+        return $this->hasMany(PropertySpecification::class,'property_id','id');
+    }
     
 }

@@ -32,13 +32,17 @@ Route::get('/',[HomeController::class, 'index'])->name('home');
 Route::post('/verify_otp_code', [AdminController::class, 'verify_otp_code'])->name('verify_otp_code');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/edit/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::patch('/update/profile', [AdminController::class, 'profile_update'])->name('profile.update');
+    Route::patch('/update/profile/image', [AdminController::class, 'profile_image_update'])->name('profile_image_update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
 Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function() {
+    Route::post('/register/agent', [AdminController::class, 'register_agent'])->name('register_agent');
+    
     Route::get('/dashboard', [AdminController::class, 'admin_index'])->name('admin.dashboard');
     Route::get('/all/users', [AdminController::class, 'all_users'])->name('admin.all_users');
     Route::delete('/delete/user/{id}', [AdminController::class, 'user_destroy'])->name('admin.user_destroy');

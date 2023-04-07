@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('role')->comment('admin=1,agent=2,tenant=3,landlord=4,contractor=5,service_provider=6');
             $table->string('phone')->nullable();
             $table->string('password');
+            $table->string('gender')->nullable();
+            $table->string('about')->nullable();
             $table->string('location')->nullable();
             $table->string('website')->nullable();
             $table->string('social_links')->nullable();

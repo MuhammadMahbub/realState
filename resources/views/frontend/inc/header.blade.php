@@ -35,6 +35,9 @@
 		<!-- P-scroll bar css-->
 		<link href="{{asset('frontend')}}/assets/plugins/pscrollbar/perfect-scrollbar.css" rel="stylesheet" />
 
+		{{-- toastr  --}}
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 	</head>
 	<body class="main-body">
 

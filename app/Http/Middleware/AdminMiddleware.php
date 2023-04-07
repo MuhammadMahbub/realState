@@ -16,6 +16,15 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        if(Auth::check() && Auth::user()->status == 0){
+            Auth::logout();
+            return redirect()->route('login')->withErrors([
+                'message' => "Your Request is Pending",
+            ]);  
+        }
+
+
         if(Auth::check() && Auth::user()->role == 1){
             return $next($request);
         }else {

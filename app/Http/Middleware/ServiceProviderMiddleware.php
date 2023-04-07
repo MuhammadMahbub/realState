@@ -16,6 +16,13 @@ class ServiceProviderMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(Auth::check() && Auth::user()->status == 0){
+            Auth::logout();
+            return redirect()->route('login')->withErrors([
+                'message' => "Your Service Provider Request is Pending",
+            ]);  
+        }
+
         if(Auth::check() && Auth::user()->role == 6){
             return $next($request);
         }else {

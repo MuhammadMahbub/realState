@@ -55,6 +55,9 @@
 <!-- Typewritter Js-->
 <script src="{{asset('frontend')}}/assets/js/typewritter.js"></script>
 
+ {{-- tOASTR --}}
+ <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <!-- Custom Js-->
 <script src="{{asset('frontend')}}/assets/js/custom.js"></script>
 
@@ -62,3 +65,24 @@
 <script src="{{asset('frontend')}}/assets/js/custom-switcher.js"></script>
 
 @yield('scripts')
+
+
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            toastr.error('{{ $error }}');
+        </script>
+    @endforeach
+@endif
+
+@if (Session::has('success'))
+    <script>
+    toastr.success("{!! Session::get('success') !!}")
+    </script>
+@endif
+
+@if (Session::has('fail'))
+    <script>
+    toastr.error("{!! Session::get('fail') !!}")
+    </script>
+@endif

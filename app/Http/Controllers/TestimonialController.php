@@ -85,6 +85,8 @@ class TestimonialController extends Controller
             'rating'=> 'required|numeric'
         ]);
 
+        $testimonial = Testimonial::findOrFail($id);
+        
         if($request->hasFile('image'))
         {
             $image    = $request->file('image');
@@ -92,14 +94,13 @@ class TestimonialController extends Controller
             $location = 'backend/testimonial/';
             $last_image = $location.$imag_ext;
             $image->move( $location, $imag_ext);
+            $testimonial->image = $last_image;
         }
 
-        $testimonial = Testimonial::findOrFail($id);
 
         $testimonial->name = $request->name;
         $testimonial->description = $request->description;
         $testimonial->rating = $request->rating;
-        $testimonial->image = $last_image;
 
         $testimonial->save();
 

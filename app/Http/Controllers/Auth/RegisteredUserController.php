@@ -46,6 +46,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'role' => $request->role,
             'phone' => $request->phone,
+            'gernder' => $request->gernder,
+            'about' => $request->about,
             'password' => Hash::make($request->password),
         ]);
         
@@ -55,54 +57,16 @@ class RegisteredUserController extends Controller
         
         
         Auth::login($user);
-        
-        // $user->notify(new SendOtp);
 
-        // return view('verify_otp',[
-        //         ''
-        //     ]);
+        // return redirect(RouteServiceProvider::ADMIN_HOME);
 
-        // return redirect(RouteServiceProvider::HOME);
-        // return redirect(route('login'));
 
         if(Auth()->user()->role == 1){
-            return redirect(route('admin.dashboard'));
+            return redirect(route(RouteServiceProvider::ADMIN_HOME));
+        }else{
+            return redirect(route('login'))->with('fail', 'Your Request in pending');
         }
-        elseif(Auth()->user()->role == 2){
-            if(Auth()->user()->status == 1){
-                return redirect(route('agent.dashboard'));
-            }else{
-                return redirect(route('login'))->with('fail','Your Request in pending');
-            }
-        }
-        elseif(Auth()->user()->role == 3){
-            if(Auth()->user()->status == 1){
-                return redirect(route('tenant.dashboard'));
-            }else{
-                return redirect(route('login'))->with('fail','Your Request in pending');
-            }
-        }
-        elseif(Auth()->user()->role == 4){
-            if(Auth()->user()->status == 1){
-                return redirect(route('landlord.dashboard'));
-            }else{
-                return redirect(route('login'));
-            }
-        }
-        elseif(Auth()->user()->role == 5){
-            if(Auth()->user()->status == 1){
-                return redirect(route('contractor.dashboard'));
-            }else{
-                return redirect(route('login'));
-            }
-        }
-        elseif(Auth()->user()->role == 6){
-            if(Auth()->user()->status == 1){
-                return redirect(route('service_provider.dashboard'));
-            }else{
-                return redirect(route('login'));
-            }
-        }
+        
     }
     
     

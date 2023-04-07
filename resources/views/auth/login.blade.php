@@ -30,21 +30,32 @@
                 <div class="single-page" >
                     <div class="col-lg-5 col-xl-4 col-md-6 d-block mx-auto">
                         <div class="wrapper wrapper2">
+                            @error('message')
+                                {{ $message }}
+                            @enderror
                             <form id="Register" class="card-body" tabindex="500" action="{{ route('login') }}" method="POST">
                                 @csrf
+                               
                                 <h3 class="pb-1">Login</h3>
+                                
                                 <div class="name">
                                     <input type="text" name="email">
                                     <label>Email</label>
                                 </div>
+                                {{-- @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror --}}
                                 
                                 <div class="passwd">
                                     <input type="password" name="password">
                                     <label>Password</label>
                                 </div>
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                                 
                                 <div class="submit">
-                                    <button class="btn btn-primary" type="submit">Login</button>
+                                    <button class="btn btn-primary w-100" type="submit">Login</button>
                                 </div>
                                 <p class="text-dark mb-0">Forgot Password?<a href="register.html" class="text-primary mx-1">click here to reset</a></p>
                             </form>

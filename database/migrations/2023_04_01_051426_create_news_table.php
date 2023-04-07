@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('title');
             $table->text('description');
-            $table->integer('favorite_count')->nullable();
+            $table->integer('favourite_count')->nullable();
             $table->integer('like_count')->nullable();
             $table->timestamps();
         });

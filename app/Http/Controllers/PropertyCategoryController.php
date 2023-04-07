@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Property;
 use App\Models\PropertyCategory;
 use Illuminate\Http\Request;
 
@@ -87,7 +88,13 @@ class PropertyCategoryController extends Controller
      */
     public function destroy($id)
     {
-        PropertyCategory::findOrFail($id)->delete();
-        return back()->with('success', 'Category Deleted');
+        $property = Property::where('category_id', $id)->get();
+
+        if($property){
+            return back()->with('fail', 'Property Exists under this Category');
+        }else{
+            PropertyCategory::findOrFail($id)->delete();
+            return back()->with('success', 'Category Deleted');
+        }
     }
 }

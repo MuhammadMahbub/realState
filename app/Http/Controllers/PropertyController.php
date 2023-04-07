@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use Illuminate\Support\Str;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Models\PropertyCategory;
+use App\Models\PropertySpecification;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -58,9 +60,10 @@ class PropertyController extends Controller
         $property->property_type_id = $request->property_type_id;
         $property->thumbnail_image = $last_image;
         $property->short_title = $request->short_title;
+        $property->slug = uniqid().'--'.Str::slug($request->short_title);
         $property->location = $request->location;
         $property->price = $request->price;
-        $property->specification = $request->specification;
+        $property->description = $request->description;
         $property->property_id = $request->property_id;
         $property->status = $request->status == 'on' ? 1 : 0;
         $property->isFavorite = $request->isFavorite == 'on' ? 1 : 0;
@@ -74,9 +77,10 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Property $property)
+    public function show( $id)
     {
-        //
+        $property = Property::findOrFail($id);
+        return view('backend.admin.property.show', compact('property'));
     }
 
     /**
@@ -121,7 +125,7 @@ class PropertyController extends Controller
         $property->short_title = $request->short_title;
         $property->location = $request->location;
         $property->price = $request->price;
-        $property->specification = $request->specification;
+        $property->description = $request->description;
         $property->property_id = $request->property_id;
         $property->status = $request->status == 'on' ? 1 : 0;
         $property->isFavorite = $request->isFavorite == 'on' ? 1 : 0;
@@ -137,6 +141,12 @@ class PropertyController extends Controller
      */
     public function destroy($id)
     {
+        $specifications = PropertySpecification::where('property_id',$id)->get();
+
+        foreach($specifications as $specification){
+            $specification->delete();
+        }
+        
         Property::findOrFail($id)->delete();
         return back()->with('success', 'Property Deleted');
     }

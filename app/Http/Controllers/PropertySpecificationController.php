@@ -39,11 +39,19 @@ class PropertySpecificationController extends Controller
 
         $specification = new PropertySpecification();
 
-        $specification->specification = $request->specification;
-        $specification->icon = $request->icon;
-        $specification->property_id = $request->property_id;
+        // $specification->specification = $request->specification;
+        // $specification->icon = $request->icon;
+        // $specification->property_id = $request->property_id;
 
-        $specification->save();
+        foreach($request->specification as $key=>$opt){
+            PropertySpecification::insert([
+                'property_id' => $request->property_id,
+                'icon' => $request->icon[$key],
+                'specification' => $request->specification[$key],
+            ]);
+        }
+
+        // $specification->save();
 
         return back()->with('success', 'Property Specification Added');
     }
@@ -82,6 +90,15 @@ class PropertySpecificationController extends Controller
         $specification->property_id = $request->property_id;
 
         $specification->save();
+        
+        // $specification->save();
+        // foreach($request->specification as $key=>$opt){
+        //     $specification->update([
+        //         'property_id' => $request->property_id,
+        //         'icon' => $request->icon[$key],
+        //         'specification' => $request->specification[$key],
+        //     ]);
+        // }
 
         return back()->with('success', 'Property Specification Updated');
     }

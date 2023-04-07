@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('thumbnail_image');
             $table->string('multiple_feature_image')->nullable();
             $table->string('short_title');
+            $table->string('slug');
             $table->string('location')->nullable();
             $table->integer('price');
             $table->boolean('isFavorite');
             $table->string('property_id')->nullable();
-            $table->text('specification')->nullable();
+            $table->longText('description');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

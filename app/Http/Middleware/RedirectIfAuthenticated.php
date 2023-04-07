@@ -20,11 +20,23 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+             
             if (Auth::guard($guard)->check() && Auth::user()->role == 1) {
-                 return redirect()->route('admin.dashboard');
-            }elseif(Auth::guard($guard)->check() && Auth::user()->role == 2){
+                return redirect()->route('admin.dashboard');
+            }
+            elseif(Auth::guard($guard)->check() && Auth::user()->role == 2 && Auth()->user()->status == 1){
                 return redirect()->route('agent.dashboard');
-            }else {
+            }elseif(Auth::guard($guard)->check() && Auth::user()->role == 3 && Auth()->user()->status == 1){
+                return redirect()->route('tenant.dashboard');
+            }elseif(Auth::guard($guard)->check() && Auth::user()->role == 4 && Auth()->user()->status == 1){
+                return redirect()->route('landlord.dashboard');
+            }elseif(Auth::guard($guard)->check() && Auth::user()->role == 5 && Auth()->user()->status == 1){
+                return redirect()->route('contractor.dashboard');
+            }elseif(Auth::guard($guard)->check() && Auth::user()->role == 6 && Auth()->user()->status == 1){
+                return redirect()->route('service_provider.dashboard');
+            }
+            
+            else {
                 return $next($request);
             }
         }

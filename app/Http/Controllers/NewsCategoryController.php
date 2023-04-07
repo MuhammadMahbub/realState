@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 
@@ -81,7 +82,14 @@ class NewsCategoryController extends Controller
      */
     public function destroy( $id)
     {
-        NewsCategory::findOrFail($id)->delete();
-        return back()->with('success', 'Category Deleted');
+        $news = News::where('category_id', $id)->get();
+        
+        if($news){
+            return back()->with('fail', 'News are available in this Category');
+        }else{
+            NewsCategory::findOrFail($id)->delete();
+            return back()->with('success', 'Category Deleted');
+        }
+        
     }
 }

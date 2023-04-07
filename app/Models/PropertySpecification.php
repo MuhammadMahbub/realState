@@ -11,7 +11,7 @@ class PropertySpecification extends Model
 
     protected $guarded = ['id'];
 
-    public function relationwithPropertySpecification(){
+    public function relationwithProperty(){
         return $this->belongsTo(Property::class,'property_id');
     }
 }
