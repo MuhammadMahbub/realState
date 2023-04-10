@@ -48,6 +48,9 @@ class RegisteredUserController extends Controller
             'phone' => $request->phone,
             'gernder' => $request->gernder,
             'about' => $request->about,
+            'location' => $request->location,
+            'country' => $request->country,
+            'city' => $request->city,
             'password' => Hash::make($request->password),
         ]);
         

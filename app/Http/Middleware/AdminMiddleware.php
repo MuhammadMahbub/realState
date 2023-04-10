@@ -24,7 +24,6 @@ class AdminMiddleware
             ]);  
         }
 
-
         if(Auth::check() && Auth::user()->role == 1){
             return $next($request);
         }else {

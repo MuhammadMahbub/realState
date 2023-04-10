@@ -2,7 +2,7 @@
 
 @extends('backend.layouts.master')
 
-@section('title','Admin Dashboard - Property')
+@section('title','Admin Dashboard - Users')
 
 @section('breadcrumb')
 <div class="page-titles">
@@ -21,7 +21,7 @@
         <div class="card-body p-0">
             <div class="table-responsive active-projects style-1">
                 <div class="tbl-caption">
-                    <h4 class="heading mb-0">Category Listing</h4>
+                    <h4 class="heading mb-0">Users Listing</h4>
                     <div>
                         <select>
                         <option>View All</option>

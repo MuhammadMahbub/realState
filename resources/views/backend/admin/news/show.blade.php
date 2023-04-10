@@ -21,7 +21,12 @@
     <div class="my-4 ">
         <table class="table table-bordered table-fixed">
             
-            <tbody>       
+            <tbody>
+                <tr>
+                    <div class="mb-3">
+                        <img src="{{ asset($news->image) ?? ''}}" alt="" width="300" height="200">
+                    </div>
+                </tr>
                  <tr class="mt-5">
                     <th >Title</th>
                     <td>{{ $news->title ?? ''}}</td>

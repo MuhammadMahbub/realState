@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Property;
 use App\Models\PropertySpecification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PropertySpecificationController extends Controller
 {
@@ -15,7 +16,13 @@ class PropertySpecificationController extends Controller
     {
         $specifications = PropertySpecification::latest()->get();
         $properties = Property::latest()->get();
-        return view('backend.admin.property.property_specification', compact('specifications','properties'));
+
+        if(Auth::user()->role == 1){
+            return view('backend.admin.property.property_specification', compact('specifications','properties'));
+        }else{
+            return view('backend.landlord.property.property_specification', compact('specifications','properties'));
+        }
+       
     }
 
     /**

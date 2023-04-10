@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title','Admin Dashboard - Property Create')
+@section('title','Landlord Dashboard - Property Create')
 
 @section('breadcrumb')
 <div class="page-titles">
@@ -15,7 +15,7 @@
 @section('content')
 
         <div class="card">
-            <form action="{{ route('property.store') }}" method="post" class="form-group" enctype="multipart/form-data">
+            <form action="{{ route('landlord.property.store') }}" method="post" class="form-group" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group mt-3">
                     <label for="">Property Category<span class="text-danget">*</span></label>

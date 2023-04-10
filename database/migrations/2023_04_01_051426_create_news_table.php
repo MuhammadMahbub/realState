@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('title');
+            $table->string('image')->default('backend/news/default.jpg');
             $table->text('description');
             $table->integer('favourite_count')->nullable();
             $table->integer('like_count')->nullable();

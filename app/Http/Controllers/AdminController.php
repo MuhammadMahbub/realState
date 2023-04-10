@@ -4,19 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\OtpVerify;
+use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class AdminController extends Controller
 {
+    public function role_shift($id){
+        $user = User::find($id);
+
+        if($user->role == 1){
+            $user->role = 4;
+        }elseif($user->role == 4){
+            $user->role = 1;
+        }
+        
+        $user->save();
+
+        return redirect('login');
+    }
+
     public function register_agent(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'role' => ['required'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', Rules\Password::defaults()],
         ]);
         
         
@@ -27,10 +43,12 @@ class AdminController extends Controller
             'phone' => $request->phone,
             'gernder' => $request->gernder,
             'about' => $request->about,
+            'country' => $request->country,
+            'city' => $request->city,
             'password' => Hash::make($request->password),
         ]);
 
-        return back()->with('success', 'Agent Created Success');
+        return back()->with('success', 'User Created Success');
     }
 
     public function profile(Request $request)
@@ -39,6 +57,7 @@ class AdminController extends Controller
     }
     public function profile_update(Request $request)
     {
+        // return $request;
         $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -58,6 +77,8 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->location = $request->location;
+        $user->country = $request->country;
+        $user->city = $request->city;
         $user->website = $request->website;
         if($request->social_links){
             $user->social_links = json_encode($request->social_links);
@@ -86,8 +107,6 @@ class AdminController extends Controller
         $user->save();
 
         return back()->with('success', 'Profile Image Changed');
-
-
     }
 
 
@@ -113,20 +132,23 @@ class AdminController extends Controller
     }
 
     public function admin_index(){
-        return view('backend.admin.dashboard');
+        return view('backend.admin.dashboard',[
+            'users' => User::all()
+        ]);
     }
+
+    // public function property_index(){
+    //     return view('backend.admin.property.index',[
+    //         'properties' => Property::latest()->get()
+    //     ]);
+    // }
     
-    public function agent_index(){
-        return view('backend.agent.dashboard');
-    }
+    
     
     public function tenant_index(){
         return view('backend.tenant.dashboard');
     }
-    
-    public function landlord_index(){
-        return view('backend.landlord.dashboard');
-    }
+  
     
     public function contractor_index(){
         return view('backend.contractor.dashboard');

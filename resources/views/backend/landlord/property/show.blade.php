@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title','Admin Dashboard - Property')
+@section('title','Landlord Dashboard - Property')
 
 @section('breadcrumb')
 <div class="page-titles">
@@ -8,7 +8,7 @@
         <li><h5 class="bc-title">Property </h5></li>
     </ol>
     <a href="payments.html" class="btn btn-primary btn-sm">Wallet Ballance: $500</a>
-    <a href="{{ route('property.index') }}" class="btn btn-primary btn-sm"> <i data-feather="arrow-left"></i> Back</a>
+    <a href="{{ route('landlord.property.index') }}" class="btn btn-primary btn-sm"> <i data-feather="arrow-left"></i> Back</a>
 </div>
 @endsection
 

@@ -305,41 +305,57 @@
                 <div class="tbl-caption">
                     <h4 class="heading mb-0">Users List</h4>
                     <div>
-                        <a class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">+ Add Agent</a>
+                        <a class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">+ Add User</a>
                         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                  + Invite Agent
+                                  + Invite User
                                 </button>
                     </div>
                 </div>
                     <table id="empoloyees-tblwrapper" class="table">
                         <thead>
                             <tr>
-                                <th>Agent ID</th>
-                                <th>Agent Name</th>
+                                <th>SL</th>
+                                <th>User Name</th>
                                 <th>Email Address</th>
                                 <th>Contact Number</th>
-                                <th>Location</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($users as $user)
+                                
                             <tr>
-                                <td><span>1</span></td>
+                                <td><span>{{ $loop->index + 1 }}</span></td>
                                 <td>
                                     <div class="products">
+                                        @if ($user->image)
+                                        <img src="{{asset($user->image)}}" class="avatar avatar-md" alt="">
+                                        @else 
                                         <img src="{{asset('backend/assets/images')}}/contacts/pic2.jpg" class="avatar avatar-md" alt="">
+                                        @endif
                                         <div>
-                                            <h6>Liam Antony</h6>
-                                            <span>Contractor</span>	
+                                            <h6>{{ $user->name ?? ''}}</h6>
+                                            <span>
+                                            @if ($user->role == 1)
+                                                Admin
+                                            @elseif ($user->role == 2)
+                                                Agent
+                                            @elseif ($user->role == 3)
+                                                Tenant
+                                            @elseif ($user->role == 4)
+                                                Landlord
+                                            @elseif ($user->role == 5)
+                                                Contractor
+                                            @elseif ($user->role == 6)
+                                                Service Provider
+                                            @endif    
+                                            </span>	
                                         </div>	
                                     </div>
                                 </td>
-                                <td><span class="text-primary">abc@gmail.com</span></td>
+                                <td><span class="text-primary">{{ $user->email ?? '' }}</span></td>
                                 <td>
-                                    <span>+91 123 456 7890</span>
-                                </td>
-                                <td>
-                                    <span>Dar es salaam</span>
+                                    <span>{{ $user->phone ?? '' }}</span>
                                 </td>
                                 <td>
                                     <select>
@@ -349,6 +365,7 @@
                                     </select>
                                 </td>
                             </tr>
+                            @endforeach
                             
                         </tbody>
                         
@@ -363,7 +380,7 @@
     <!-- Add Agents -->
     <div class="offcanvas offcanvas-end customeoff" tabindex="-1" id="offcanvasExample">
         <div class="offcanvas-header">
-        <h5 class="modal-title" id="#gridSystemModal">Add Agent</h5>
+        <h5 class="modal-title" id="#gridSystemModal">Add User</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -391,21 +408,37 @@
                     @csrf
                     <div class="row">
                         <div class="col-xl-6 mb-3">
-                            <label for="exampleFormControlInput2" class="form-label">Agent Name<span class="text-danger">*</span></label>
-                            <input name="name" type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Agent Name">
-                        </div>	
-                        <div class="col-xl-6 mb-3">
-                            <label for="exampleFormControlInput3" class="form-label">Agent Email<span class="text-danger">*</span></label>
-                            <input name="email" type="email" class="form-control" id="exampleFormControlInput3" placeholder="Enter Agent Name">
+                            <label for="exampleFormControlInput2" class="form-label">User Name<span class="text-danger">*</span></label>
+                            <input name="name" type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Name">
                         </div>
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
+                        <div class="col-xl-6 mb-3">
+                            <label for="exampleFormControlInput3" class="form-label">User Email<span class="text-danger">*</span></label>
+                            <input name="email" type="email" class="form-control" id="exampleFormControlInput3" placeholder="abc@gmail.com">
+                        </div>
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
                         <div class="col-xl-6 mb-3">
                             <label for="exampleFormControlInput4" class="form-label">Password<span class="text-danger">*</span></label>
-                            <input name="password" type="password" class="form-control" id="exampleFormControlInput4" placeholder="Enter Agent Password">
+                            <input name="password" type="password" class="form-control" id="exampleFormControlInput4" placeholder="Enter Password">
                         </div>
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
                         <div class="col-xl-6 mb-3">
-                            <label for="exampleFormControlInput88" class="form-label">Mobile<span class="text-danger">*</span></label>
+                            <label for="exampleFormControlInput88" class="form-label">Mobile</label>
                             <input name="phone" type="number" class="form-control" id="exampleFormControlInput88" placeholder="Enter Phone Number">
-                        </div>>
+                        </div>
+                        @error('phone')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
                         {{-- <div class="col-xl-6 mb-3">
                             <label class="form-label">Country<span class="text-danger">*</span></label>
                             <select class="default-select form-control">
@@ -431,7 +464,7 @@
                         </div> --}}
                         
                         <div class="col-xl-6 mb-3">
-                            <label class="form-label">Gender<span class="text-danger">*</span></label>
+                            <label class="form-label">Gender</label>
                             <select name="gender" class="default-select form-control">
                                 <option  data-display="Select">Please select</option>
                                 <option value="male">Male</option>
@@ -439,10 +472,34 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
+                        @error('gender')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
+                        <div class="col-xl-6 mt-2 mb-3">
+                            <label class="form-label">Register<span class="text-danger">*</span></label>
+                            <select name="role" id="select-Categories12" class="form-control form-select select2 br-tr-md-0 br-br-md-0">
+                                <option selected value="">Register as*</option>
+                                <option value="2">Agent</option>
+                                <option value="3">Tenant</option>
+                                <option value="4">Landlord</option>
+                                <option value="5">Contractor</option>
+                                <option value="6">Service Provider</option>
+                            </select>
+                        </div>
+                        @error('role')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
                         <div class="col-xl-12 mb-3">
                             <label class="form-label">About<span class="text-danger">*</span></label>
                             <textarea rows="2" class="form-control"></textarea>
                         </div>	
+                        @error('about')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+
+                        
                     </div>
                     <div>
                         <button class="btn btn-primary me-1" type="submit">Submit</button>

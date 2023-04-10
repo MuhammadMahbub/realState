@@ -39,9 +39,19 @@ class NewsController extends Controller
 
         $news = new News();
 
+        if($request->hasFile('image'))
+        {
+            $image    = $request->file('image');
+            $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
+            $location = 'backend/news/';
+            $last_image = $location.$imag_ext;
+            $image->move( $location, $imag_ext);
+        }
+
         $news->category_id = $request->category_id;
         $news->title = $request->title;
         $news->description = $request->description;
+        $news->image = $last_image;
 
         $news->save();
 
@@ -77,6 +87,16 @@ class NewsController extends Controller
         ]);
 
         $news = News::findOrFail($id);
+
+        if($request->hasFile('image'))
+        {
+            $image    = $request->file('image');
+            $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
+            $location = 'backend/news/';
+            $last_image = $location.$imag_ext;
+            $image->move( $location, $imag_ext);
+            $news->image = $last_image;
+        }
 
         $news->category_id = $request->category_id;
         $news->title = $request->title;

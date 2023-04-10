@@ -46,7 +46,7 @@
     <div class="pt-3">
         <div class="settings-form">
             <h4 class="text-primary">Account Settings</h4>
-            <form action="{{ route('profile.update', Auth::id()) }}" method="POST">
+            <form action="{{ route('profile_update', Auth::id()) }}" method="POST">
                 @csrf
                 @method("PATCH")
                 <div class="row">
@@ -124,13 +124,13 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <div class="form-check custom-checkbox">
                         <input type="checkbox" class="form-check-input" id="gridCheck">
                         <label class="form-check-label form-label" for="gridCheck"> Remember me</label>
                     </div>
-                </div>
-                <button class="btn btn-primary" type="submit">Save
+                </div> --}}
+                <button class="btn btn-primary" type="submit">Update
                 </button>
             </form>
         </div>

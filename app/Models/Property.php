@@ -22,5 +22,10 @@ class Property extends Model
     public function relationwithPropertySpecification(){
         return $this->hasMany(PropertySpecification::class,'property_id','id');
     }
+
+
+    public function relationWithUser(){
+        return $this->belongsTo(User::class,'role_id');
+    }
     
 }

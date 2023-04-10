@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title','Admin Dashboard - Property Create')
+@section('title','Landlord Dashboard - Property Create')
 
 @section('breadcrumb')
 <div class="page-titles">
@@ -8,14 +8,14 @@
         <li><h5 class="bc-title">Property </h5></li>
     </ol>
     <a href="payments.html" class="btn btn-primary btn-sm">Wallet Ballance: $500</a>
-    <a href="{{ route('property.index') }}" class="btn btn-primary btn-sm"> <i data-feather="arrow-left"></i> Back</a>
+    <a href="{{ route('landlord.property.index') }}" class="btn btn-primary btn-sm"> <i data-feather="arrow-left"></i> Back</a>
 </div>
 @endsection
 
 @section('content')
 
     <div class="card">
-        <form action="{{ route('property.update', $property->id) }}" method="post" class="form-group" enctype="multipart/form-data">
+        <form action="{{ route('landlord.property.update', $property->id) }}" method="post" class="form-group" enctype="multipart/form-data">
             @csrf
             @method("PUT")
             @if (Auth::user()->role == 1)

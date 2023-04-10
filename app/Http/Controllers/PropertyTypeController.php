@@ -82,7 +82,8 @@ class PropertyTypeController extends Controller
      */
     public function destroy( $id)
     {
-        $property = Property::where('property_type_id', $id)->get();
+         
+        $property = Property::where('property_type_id', $id)->first();
 
         if($property){
             return back()->with('fail', 'Property Exists under this Type');

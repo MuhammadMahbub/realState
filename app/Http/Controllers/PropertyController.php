@@ -17,8 +17,14 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::latest()->get();
-        return view('backend.admin.property.index',compact('properties'));
+        if(Auth::user()->role == 1){
+            $properties = Property::latest()->get();
+            return view('backend.admin.property.index',compact('properties'));
+        }else{
+            $properties = Property::where('role_id', Auth::id())->get();
+            return view('backend.landlord.property.index',compact('properties'));
+        }
+
     }
 
     /**
@@ -28,7 +34,11 @@ class PropertyController extends Controller
     {
         $categories = PropertyCategory::all();
         $types = PropertyType::all();
-        return view('backend.admin.property.create', compact('categories','types'));
+        if(Auth::user()->role == 1){
+            return view('backend.admin.property.create', compact('categories','types'));
+        }else{
+            return view('backend.landlord.property.create', compact('categories','types'));
+        }
     }
 
     /**
@@ -55,7 +65,7 @@ class PropertyController extends Controller
 
         $property = new Property();
 
-        $property->role_id = Auth::user()->role;
+        $property->role_id = Auth::id();
         $property->category_id = $request->category_id;
         $property->property_type_id = $request->property_type_id;
         $property->thumbnail_image = $last_image;
@@ -71,16 +81,25 @@ class PropertyController extends Controller
 
         $property->save();
 
-        return redirect()->route('property.index')->with('success', 'Property Created');
+        if(Auth::user()->role == 1){
+            return redirect()->route('property.index')->with('success', 'Property Created');
+        }else{
+            return redirect()->route('landlord.property.index')->with('success', 'Property Created');
+        }
      }
 
     /**
      * Display the specified resource.
      */
-    public function show( $id)
+    public function property_show( $slug)
     {
-        $property = Property::findOrFail($id);
-        return view('backend.admin.property.show', compact('property'));
+        $property = Property::where('slug', $slug)->first();
+
+        if(Auth::user()->role == 1){
+            return view('backend.admin.property.show', compact('property'));
+        }else{
+            return view('backend.landlord.property.show', compact('property'));
+        }
     }
 
     /**
@@ -91,7 +110,12 @@ class PropertyController extends Controller
         $property = Property::findOrFail($id);
         $categories = PropertyCategory::all();
         $types = PropertyType::all();
-        return view('backend.admin.property.edit', compact('categories','types','property'));
+
+        if(Auth::user()->role == 1){
+            return view('backend.admin.property.edit', compact('categories','types','property'));
+        }else{
+            return view('backend.landlord.property.edit', compact('categories','types','property'));
+        }
     }
 
     /**
@@ -119,7 +143,7 @@ class PropertyController extends Controller
             $property->thumbnail_image = $last_image;
         }
 
-        $property->role_id = Auth::user()->role;
+        $property->role_id = Auth::id();
         $property->category_id = $request->category_id;
         $property->property_type_id = $request->property_type_id;
         $property->short_title = $request->short_title;
@@ -127,13 +151,19 @@ class PropertyController extends Controller
         $property->price = $request->price;
         $property->description = $request->description;
         $property->property_id = $request->property_id;
-        $property->status = $request->status == 'on' ? 1 : 0;
         $property->isFavorite = $request->isFavorite == 'on' ? 1 : 0;
         $property->multiple_feature_image = json_encode($request->multiple_feature_image);
+        if($request->status){
+            $property->status = $request->status;
+        }
 
         $property->save();
 
-        return redirect()->route('property.index')->with('success', 'Property Updated');
+        if(Auth::user()->role == 1){
+            return redirect()->route('property.index')->with('success', 'Property Updated');
+        }else{
+            return redirect()->route('landlord.property.index')->with('success', 'Property Updated');
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title','Admin Dashboard - Property')
+@section('title','Landlord Dashboard - Property')
 
 @section('breadcrumb')
 <div class="page-titles">
@@ -8,7 +8,7 @@
         <li><h5 class="bc-title">Property </h5></li>
     </ol>
     <a href="payments.html" class="btn btn-primary btn-sm">Wallet Ballance: $500</a>
-    <a href="{{ route('property.create') }}" class="btn btn-primary btn-sm">Add Property</a>
+    <a href="{{ route('landlord.property.create') }}" class="btn btn-primary btn-sm">Add Property</a>
 </div>
 @endsection
 
@@ -19,7 +19,7 @@
         <div class="card-body p-0">
             <div class="table-responsive active-projects style-1">
             <div class="tbl-caption">
-                <h4 class="heading mb-0">Property Listing</h4>
+                <h4 class="heading mb-0">Category Listing</h4>
                 <div>
                     <select>
                      <option>View All</option>
@@ -39,7 +39,6 @@
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Landlord</th>
                             <th>Category Name</th>
                             <th>Property Type</th>
                             <th>Status</th>
@@ -51,7 +50,6 @@
                         @foreach ($properties as $property)
                         <tr>
                             <td>{{ $property->short_title ?? ''}}</td>
-                            <td>{{ $property->relationWithUser->name ?? ''}}</td>
                             <td>{{ $property->relationwithPropertyCategory->category_name ?? ''}}</td>
                             <td>{{ $property->relationwithPropertyType->type_name ?? ''}}</td>
                             <td>{{ $property->status == 0 ? 'Pending' : 'Active' }}</td>
@@ -64,8 +62,8 @@
                                       <i data-feather="more-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="{{ route('property_show', $property->slug) }}">View</a></li>
-                                      <li><a class="dropdown-item" href="{{ route('property.edit', $property->id) }}">Edit</a></li>
+                                      <li><a class="dropdown-item" href="{{ route('landlord.property_show', $property->slug) }}">View</a></li>
+                                      <li><a class="dropdown-item" href="{{ route('landlord.property.edit', $property->id) }}">Edit</a></li>
                                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteProperty{{ $property->id }}">Delete</a></li>
                                     </ul>
                                   </div>
@@ -89,7 +87,7 @@
                                         <div class="row">
                                             <div class="text-center p-3 d-flex justify-content-center">
                                                 <a href="javascript:void(0)" class="btn btn-dark me-2" data-bs-dismiss="modal">Cancel</a>
-                                                <form action="{{ route('property.destroy', $property->id) }}" method="POST">
+                                                <form action="{{ route('landlord.property.destroy', $property->id) }}" method="POST">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-danger">Delete</button>

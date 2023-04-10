@@ -41,6 +41,7 @@
                             <th>SL</th>
                             <th>Category</th>
                             <th>Title</th>
+                            <th>Image</th>
                             <th>Description</th>
                             <th>Actions</th>
                         </tr>
@@ -51,6 +52,9 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $news->relationwithNewsCategory->category_name ?? '' }}</td>
                             <td>{{ $news->title ?? '' }}</td>
+                            <td>
+                                <img src="{{ asset($news->image ?? '') }}" alt="NO IMAGE" width="150">
+                            </td>
                             <td>{!! Str::limit($news->description, 100) !!}</td>
                             
                             <td>
@@ -59,7 +63,7 @@
                                       <i data-feather="more-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="{{ route('news.show', $news->id) }}">Show</a></li>
+                                      <li><a class="dropdown-item" href="{{ route('news.show', $news->id) }}">View Details</a></li>
                                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editNews{{ $news->id }}">Edit</a></li>
                                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteNews{{ $news->id }}">Delete</a></li>
                                     </ul>
@@ -108,10 +112,27 @@
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
                                             </div>
+
+                                            <div class="form-group mt-2">
+                                                <label>Previous Image </label>
+                                                
+                                                <img src="{{ asset($news->image) }}" width="200">
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Image <span class="text-danget">*</span></label>
+                                                <input type="file" class="form-control" name="image" onchange="document.getElementById('edit_image__{{ $news->id }}').src=window.URL.createObjectURL(this.files[0])"/>
+                                
+                                                <div class="mt-2 mb-2">
+                                                    <img id="edit_image__{{ $news->id }}" width="200">
+                                                </div>
+                                            </div>
+                                            @error('image')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror  
                                         
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="submit" class="btn btn-primary">Update</button>
                                             </div>
                                         </div>
                                     </form>
@@ -162,63 +183,76 @@
                         @endforeach
                         
                     </tbody>
-        </table> 
-    </div>
-</div>
-<!-- End of white box -->
-
-@push('modals')
-    <!-- News Add Modal -->
-    <div class="modal fade" id="addNews" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">News </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('news.store') }}" method="post" class="form-group" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="">News Category<span class="text-danget">*</span></label>
-                            <select name="category_id" id="" class="form-control">
-                                <option value selected>--select one--</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                @endforeach    
-                            </select>  
-                            @error('category_id')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-            
-                        <div class="form-group mt-2">
-                            <label for="">Title<span class="text-danget">*</span></label>
-                            <input type="text"  name="title" placeholder="Title" class="form-control">  
-                            @error('short_title')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        
-                        <div class="form-group mt-2">
-                            <label for="">Description<span class="text-danget">*</span></label>
-                            <textarea name="description" id="editor" cols="30" rows="10" class="form-control"></textarea>
-                            @error('description')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </div>
-                </form>
+                </table> 
             </div>
         </div>
-    </div>
-@endpush
+        <!-- End of white box -->
 
+        @push('modals')
+            <!-- News Add Modal -->
+            <div class="modal fade" id="addNews" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">News </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('news.store') }}" method="post" class="form-group" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="">News Category<span class="text-danget">*</span></label>
+                                    <select name="category_id" id="" class="form-control">
+                                        <option value selected>--select one--</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        @endforeach    
+                                    </select>  
+                                    @error('category_id')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                    
+                                <div class="form-group mt-2">
+                                    <label for="">Title<span class="text-danget">*</span></label>
+                                    <input type="text"  name="title" placeholder="Title" class="form-control">  
+                                    @error('short_title')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                
+                                <div class="form-group mt-2">
+                                    <label for="">Description<span class="text-danget">*</span></label>
+                                    <textarea name="description" id="editor" cols="30" rows="10" class="form-control"></textarea>
+                                    @error('description')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>  Image <span class="text-danget">*</span></label>
+                                    <input type="file" class="form-control" name="image" onchange="document.getElementById('thumbnail_image').src=window.URL.createObjectURL(this.files[0])"/>
+                    
+                                    <div class="mt-2 mb-2">
+                                        <img id="thumbnail_image" width="200">
+                                    </div>
+                                </div>
+                                @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror 
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endpush
+    </div>
+</div>
 @endsection
 
 
