@@ -64,10 +64,15 @@
                         <h6>Subscribe Newsletter</h6>
                         <hr class="deep-purple  text-primary accent-2 mb-4 mt-0 d-inline-block mx-auto">
                         <div class="clearfix"></div>
-                        <div class="input-group w-100">
-                            <input type="text" class="form-control br-tl-3  br-bl-3 " placeholder="Email">
-                                <button type="button" class="btn btn-primary br-tr-3  br-br-3"> Subscribe </button>
-                        </div>
+                        {{-- @auth --}}
+                            <form action="{{ route('subscribe') }}" method="post">
+                            @csrf
+                                <div class="input-group w-100">
+                                    <input type="text" class="form-control br-tl-3  br-bl-3" name="email" placeholder="Email">
+                                    <button type="submit" class="btn btn-primary br-tr-3  br-br-3"> Subscribe </button>
+                                </div>
+                            </form>
+                        {{-- @endauth --}}
                         <h6 class="mb-0 mt-5">Payments</h6>
                         <hr class="deep-purple  text-primary accent-2 mb-2 mt-3 d-inline-block mx-auto">
                         <div class="clearfix"></div>

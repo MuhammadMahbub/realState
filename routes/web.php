@@ -34,6 +34,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
+Route::post('/search',[HomeController::class, 'searchProperty'])->name('searchProperty');
+Route::post('/subscribe',[HomeController::class, 'subscribe'])->name('subscribe');
 
 Route::post('/verify_otp_code', [AdminController::class, 'verify_otp_code'])->name('verify_otp_code');
 
@@ -73,6 +75,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     //news management
     Route::resource('news_category', NewsCategoryController::class);
     Route::resource('news', NewsController::class);
+    Route::get('news/show/{slug}', [NewsController::class, 'news_show'])->name('news_show');
 
     // testimonial 
     Route::resource('testimonial', TestimonialController::class);

@@ -62,9 +62,9 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function news_show($slug)
     {
-        $news = News::findOrFail($id);
+        $news = News::where('slug',$slug)->first();
         return view('backend.admin.news.show', compact('news'));
     }
 
@@ -95,7 +95,7 @@ class NewsController extends Controller
             if($news->image != 'backend/news/default.jpg'){
                 unlink($news->image);
             }
-            
+
             $image    = $request->file('image');
             $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
             $location = 'backend/news/';

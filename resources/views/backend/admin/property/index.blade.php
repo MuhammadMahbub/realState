@@ -71,7 +71,7 @@
                                       <i data-feather="more-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="{{ route('property_show', $property->slug) }}">View</a></li>
+                                      <li><a class="dropdown-item" href="{{ route('property_show', $property->slug) }}">View Details</a></li>
                                       <li><a class="dropdown-item" href="{{ route('property.edit', $property->id) }}">Edit</a></li>
                                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteProperty{{ $property->id }}">Delete</a></li>
                                     </ul>
@@ -88,9 +88,8 @@
                                         <span class=""><svg xmlns="http://www.w3.org/2000/svg" height="60" width="60" viewBox="0 0 24 24">
                                         <path fill="#f07f8f" d="M20.05713,22H3.94287A3.02288,3.02288,0,0,1,1.3252,17.46631L9.38232,3.51123a3.02272,3.02272,0,0,1,5.23536,0L22.6748,17.46631A3.02288,3.02288,0,0,1,20.05713,22Z"/><circle cx="12" cy="17" r="1" fill="#e62a45"/><path fill="#e62a45" d="M12,14a1,1,0,0,1-1-1V9a1,1,0,0,1,2,0v4A1,1,0,0,1,12,14Z"/></svg></span>
                                         <h4 class="h4 mb-0 mt-3">Warning</h4>
-                                            <p class="card-text">Are you sure you want to delete data?</p>
-                                            <strong class="card-text text-danger">Once deleted, you will not be able to recover this data!</strong>
-                                        
+                                        <p class="card-text">Are you sure you want to delete data?</p>
+                                        <strong class="card-text text-danger">Once deleted, you will not be able to recover this data!</strong>
                                     </div>
                                     <div class="card-footer text-center border-0 pt-0">
                                         <div class="row">
@@ -142,6 +141,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

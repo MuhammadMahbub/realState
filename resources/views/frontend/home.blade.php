@@ -16,49 +16,45 @@
                         <p>Short description goes here...</p>
                     </div>
                     <div class="row">
-                        <div class="col-xl-10 col-lg-12 col-md-12 d-block mx-auto">
-                            <div class="search-background bg-transparent">
-                                <div class="form row no-gutters">
-                                <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg mb-0">
-                                    <select name="country" id="select-Categories12" class="form-control form-select select2 br-tr-md-0 br-br-md-0">
-                                        <option value="1" selected>All Status</option>
-                                        <option value="2">Rent</option>
-                                        <option value="3">Sale</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg mb-0">
-                                    <select name="country" id="select-Categories13" class="form-control form-select br-md-0 select2">
-                                        <option value="1" selected>All Types</option>
-                                        <option value="2">Apartments</option>
-                                        <option value="3">Homes</option>
-                                        <option value="4">Offices </option>
-                                        <option value="5">Shops </option>
-                                        <option value="6">Warehouses/Godowns</option>
-                                        <option value="7">Plots for Sale</option>
+                        <form action="{{ route('searchProperty') }}" method="post">
+                            @csrf
+                            <div class="col-xl-10 col-lg-12 col-md-12 d-block mx-auto">
+                                <div class="search-background bg-transparent">
+                                    <div class="form row no-gutters">
+                                        <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg mb-0">
+                                            <select name="category_id" id="select-Categories12" class="form-control form-select select2 br-tr-md-0 br-br-md-0">
+                                                <option value="" selected>All Category</option>
+                                                @foreach ($property_categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                @endforeach
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg mb-0">
+                                            <select name="property_type_id" id="select-Categories13" class="form-control form-select br-md-0 select2">
+                                                <option value="" selected>All Types</option>
+                                                @foreach ($property_types as $type)
+                                                    <option value="{{ $type->id }}">{{ $type->type_name }}</option>
+                                                @endforeach
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg mb-0">
+                                            <select name="location" id="select-Categories14" class="form-control form-select br-md-0 select2">
+                                                <option value="" selected>location</option>
+                                                @foreach ($property_location as $location)
+                                                    <option value="{{ $location->location ?? '' }}">{{ $location->location ?? '' }}</option>    
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         
-                                    </select>
-                                </div>
-                                <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg mb-0">
-                                    <select name="country" id="select-Categories14" class="form-control form-select br-md-0 select2">
-                                        <option value="1" selected>location</option>
-                                        <option value="2">Dar es salaam</option>
-                                        <option value="3">Zanzibar</option>
-                                        <option value="4">Mwanza</option>
-                                        <option value="5">Dodoma</option>
-                                        <option value="6">Arusha</option>
-                                        <option value="7">Morogoro</option>
-                                        <option value="8">Mbeya</option>
-                                        <option value="9">Iringa</option>
-                                    </select>
-                                </div>
-                                
-                                
-                                <div class="col-xl-3 col-lg-3 col-md-12 mb-0">
-                                    <a href="javascript:void(0);" class="br-tl-md-0 br-bl-md-0 btn btn-lg btn-block btn-primary">Search Now</a>
+                                        <div class="col-xl-3 col-lg-3 col-md-12 mb-0">
+                                            <button type="submit" href="" class="br-tl-md-0 br-bl-md-0 btn btn-lg btn-block btn-primary">Search Now</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div><!-- /header-text -->
