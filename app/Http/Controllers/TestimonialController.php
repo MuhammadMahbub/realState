@@ -89,6 +89,10 @@ class TestimonialController extends Controller
         
         if($request->hasFile('image'))
         {
+            if($testimonial->image != 'backend/testimonial/default.jpg'){
+                unlink($testimonial->image);
+            }
+            
             $image    = $request->file('image');
             $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
             $location = 'backend/testimonial/';
@@ -112,7 +116,11 @@ class TestimonialController extends Controller
      */
     public function destroy($id)
     {
-        Testimonial::findOrFail($id)->delete();
+        $testimonial = Testimonial::findOrFail($id);
+        if($testimonial->image != 'backend/testimonial/default.jpg'){
+            unlink($testimonial->image);
+        }
+        $testimonial->delete();
         return back()->with('success', 'Testimonial Deleted');
     }
 }

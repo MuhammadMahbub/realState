@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('property_categories', function (Blueprint $table) {
             $table->id();
             $table->string('category_name');
+            $table->string('image')->default('backend/property/default.jpg');
             $table->integer('property_qty')->nullable();
             $table->text('description');
             $table->timestamps();

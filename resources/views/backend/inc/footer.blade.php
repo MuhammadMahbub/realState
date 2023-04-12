@@ -279,7 +279,11 @@
     
     <script>
       ClassicEditor
-          .create( document.querySelector( '#editor' ) )
+          .create( document.querySelector( '#editor' ),{
+                ckfinder: {
+                    uploadUrl: "{{route('ckeditor_image.upload').'?_token='.csrf_token()}}"
+                }
+              })
     </script>
     
     @if ($errors->any())

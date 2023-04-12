@@ -23,7 +23,9 @@
             
             <tbody>
                 <tr class="mb-4 mt-3">
-                    <img src="{{ asset($property->thumbnail_image) }}" alt="" width="200">
+                    <div class="">
+                        <img src="{{ asset($property->thumbnail_image) }}" alt="" width="400" height="200" class="mb-3">
+                    </div>
                 </tr>       
                  <tr class="mt-5">
                     <th >Title</th>
@@ -70,8 +72,8 @@
                 <tr>
                     <th>Multi Images</th>
                     <td>
-                        @foreach (json_decode($property->multiple_feature_image) as $image)
-                            <img src="{{ $image }}" alt="" width="200">
+                        @foreach ($property->relationwithMultipleImage as $img)
+                            <img src="{{ asset($img->multiple_image) }}" alt="" width="200">
                         @endforeach
                     </td>
                 </tr>

@@ -376,185 +376,183 @@
     </div>
 </div>
 
-@push('modals')
-    <!-- Add Agents -->
-    <div class="offcanvas offcanvas-end customeoff" tabindex="-1" id="offcanvasExample">
-        <div class="offcanvas-header">
-        <h5 class="modal-title" id="#gridSystemModal">Add User</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="container-fluid">
-                {{-- <div>
-                    <label>Profile Picture</label>
-                    <div class="dz-default dlab-message upload-img mb-3">	
-                        <form action="#" class="dropzone">
-                            <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M20.5 20V35" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M34.4833 30.6501C36.1088 29.7638 37.393 28.3615 38.1331 26.6644C38.8731 24.9673 39.027 23.0721 38.5703 21.2779C38.1136 19.4836 37.0724 17.8926 35.6111 16.7558C34.1497 15.619 32.3514 15.0013 30.4999 15.0001H28.3999C27.8955 13.0488 26.9552 11.2373 25.6498 9.70171C24.3445 8.16614 22.708 6.94647 20.8634 6.1344C19.0189 5.32233 17.0142 4.93899 15.0001 5.01319C12.9861 5.0874 11.015 5.61722 9.23523 6.56283C7.45541 7.50844 5.91312 8.84523 4.7243 10.4727C3.53549 12.1002 2.73108 13.9759 2.37157 15.959C2.01205 17.9421 2.10678 19.9809 2.64862 21.9222C3.19047 23.8634 4.16534 25.6565 5.49994 27.1667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <div class="fallback">
-                                <input name="file" type="file" multiple>
-                                
-                            </div>
-                        </form>
-                    </div>	
-                </div> --}}
-                <form action="{{ route('register_agent') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-xl-6 mb-3">
-                            <label for="exampleFormControlInput2" class="form-label">User Name<span class="text-danger">*</span></label>
-                            <input name="name" type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Name">
-                        </div>
-                        @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                        <div class="col-xl-6 mb-3">
-                            <label for="exampleFormControlInput3" class="form-label">User Email<span class="text-danger">*</span></label>
-                            <input name="email" type="email" class="form-control" id="exampleFormControlInput3" placeholder="abc@gmail.com">
-                        </div>
-                        @error('email')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                        <div class="col-xl-6 mb-3">
-                            <label for="exampleFormControlInput4" class="form-label">Password<span class="text-danger">*</span></label>
-                            <input name="password" type="password" class="form-control" id="exampleFormControlInput4" placeholder="Enter Password">
-                        </div>
-                        @error('password')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                        <div class="col-xl-6 mb-3">
-                            <label for="exampleFormControlInput88" class="form-label">Mobile</label>
-                            <input name="phone" type="number" class="form-control" id="exampleFormControlInput88" placeholder="Enter Phone Number">
-                        </div>
-                        @error('phone')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                        {{-- <div class="col-xl-6 mb-3">
-                            <label class="form-label">Country<span class="text-danger">*</span></label>
-                            <select class="default-select form-control">
-                                <option  data-display="Select">Please select</option>
-                                <option value="html">Tanzania</option>
-                                <option value="css">Kenya</option>
-                                <option value="javascript">Uganda</option>
-                                <option>Rwanda</option>
-                                <option>Burundi</option>
-                                <option>Botswana</option>
-                                <option>Namibia</option>
-                            </select>
-                        </div>
-                        <div class="col-xl-6 mb-3">
-                            <label class="form-label">City<span class="text-danger">*</span></label>
-                            <select class="default-select form-control">
-                                <option  data-display="Select">Please select</option>
-                                <option value="html">Dar es salaam</option>
-                                <option value="css">Mbeya</option>
-                                <option value="javascript">Zanzibar</option>
-                                <option>Mwanza</option>
-                            </select>
-                        </div> --}}
-                        
-                        <div class="col-xl-6 mb-3">
-                            <label class="form-label">Gender</label>
-                            <select name="gender" class="default-select form-control">
-                                <option  data-display="Select">Please select</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        @error('gender')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                        <div class="col-xl-6 mt-2 mb-3">
-                            <label class="form-label">Register<span class="text-danger">*</span></label>
-                            <select name="role" id="select-Categories12" class="form-control form-select select2 br-tr-md-0 br-br-md-0">
-                                <option selected value="">Register as*</option>
-                                <option value="2">Agent</option>
-                                <option value="3">Tenant</option>
-                                <option value="4">Landlord</option>
-                                <option value="5">Contractor</option>
-                                <option value="6">Service Provider</option>
-                            </select>
-                        </div>
-                        @error('role')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                        <div class="col-xl-12 mb-3">
-                            <label class="form-label">About<span class="text-danger">*</span></label>
-                            <textarea rows="2" class="form-control"></textarea>
+    @push('modals')
+        <!-- Add Agents -->
+        <div class="offcanvas offcanvas-end customeoff" tabindex="-1" id="offcanvasExample">
+            <div class="offcanvas-header">
+            <h5 class="modal-title" id="#gridSystemModal">Add User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="container-fluid">
+                    {{-- <div>
+                        <label>Profile Picture</label>
+                        <div class="dz-default dlab-message upload-img mb-3">	
+                            <form action="#" class="dropzone">
+                                <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.5 20V35" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M34.4833 30.6501C36.1088 29.7638 37.393 28.3615 38.1331 26.6644C38.8731 24.9673 39.027 23.0721 38.5703 21.2779C38.1136 19.4836 37.0724 17.8926 35.6111 16.7558C34.1497 15.619 32.3514 15.0013 30.4999 15.0001H28.3999C27.8955 13.0488 26.9552 11.2373 25.6498 9.70171C24.3445 8.16614 22.708 6.94647 20.8634 6.1344C19.0189 5.32233 17.0142 4.93899 15.0001 5.01319C12.9861 5.0874 11.015 5.61722 9.23523 6.56283C7.45541 7.50844 5.91312 8.84523 4.7243 10.4727C3.53549 12.1002 2.73108 13.9759 2.37157 15.959C2.01205 17.9421 2.10678 19.9809 2.64862 21.9222C3.19047 23.8634 4.16534 25.6565 5.49994 27.1667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple>
+                                    
+                                </div>
+                            </form>
                         </div>	
-                        @error('about')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                        
-                    </div>
-                    <div>
-                        <button class="btn btn-primary me-1" type="submit">Submit</button>
-                        <button class="btn btn-danger light ms-1">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>		
-        <!-- Add Agents End -->
-
-        <!-- Invite New Agents -->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-center">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel1">Invite Agent</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <label class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" placeholder="Enter Email">
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <label class="form-label mt-3">First Name<span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <label class="form-label mt-3">Last Name<span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Surname">
-                                    </div>
-                                </div>
+                    </div> --}}
+                    <form action="{{ route('register_agent') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-xl-6 mb-3">
+                                <label for="exampleFormControlInput2" class="form-label">User Name<span class="text-danger">*</span></label>
+                                <input name="name" type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Name">
                             </div>
-                            <div class="mt-3 invite">
-                                <label class="form-label">Send invitation email<span class="text-danger">*</span></label>
-                                <input type ="email" class="form-control " placeholder="+ invite">
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <div class="col-xl-6 mb-3">
+                                <label for="exampleFormControlInput3" class="form-label">User Email<span class="text-danger">*</span></label>
+                                <input name="email" type="email" class="form-control" id="exampleFormControlInput3" placeholder="abc@gmail.com">
                             </div>
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <div class="col-xl-6 mb-3">
+                                <label for="exampleFormControlInput4" class="form-label">Password<span class="text-danger">*</span></label>
+                                <input name="password" type="password" class="form-control" id="exampleFormControlInput4" placeholder="Enter Password">
+                            </div>
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <div class="col-xl-6 mb-3">
+                                <label for="exampleFormControlInput88" class="form-label">Mobile</label>
+                                <input name="phone" type="number" class="form-control" id="exampleFormControlInput88" placeholder="Enter Phone Number">
+                            </div>
+                            @error('phone')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            {{-- <div class="col-xl-6 mb-3">
+                                <label class="form-label">Country<span class="text-danger">*</span></label>
+                                <select class="default-select form-control">
+                                    <option  data-display="Select">Please select</option>
+                                    <option value="html">Tanzania</option>
+                                    <option value="css">Kenya</option>
+                                    <option value="javascript">Uganda</option>
+                                    <option>Rwanda</option>
+                                    <option>Burundi</option>
+                                    <option>Botswana</option>
+                                    <option>Namibia</option>
+                                </select>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <label class="form-label">City<span class="text-danger">*</span></label>
+                                <select class="default-select form-control">
+                                    <option  data-display="Select">Please select</option>
+                                    <option value="html">Dar es salaam</option>
+                                    <option value="css">Mbeya</option>
+                                    <option value="javascript">Zanzibar</option>
+                                    <option>Mwanza</option>
+                                </select>
+                            </div> --}}
                             
-                    
+                            <div class="col-xl-6 mb-3">
+                                <label class="form-label">Gender</label>
+                                <select name="gender" class="default-select form-control">
+                                    <option  data-display="Select">Please select</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            @error('gender')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <div class="col-xl-6 mt-2 mb-3">
+                                <label class="form-label">Register<span class="text-danger">*</span></label>
+                                <select name="role" id="select-Categories12" class="form-control form-select select2 br-tr-md-0 br-br-md-0">
+                                    <option selected value="">Register as*</option>
+                                    <option value="2">Agent</option>
+                                    <option value="3">Tenant</option>
+                                    <option value="4">Landlord</option>
+                                    <option value="5">Contractor</option>
+                                    <option value="6">Service Provider</option>
+                                </select>
+                            </div>
+                            @error('role')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            <div class="col-xl-12 mb-3">
+                                <label class="form-label">About<span class="text-danger">*</span></label>
+                                <textarea rows="2" class="form-control"></textarea>
+                            </div>	
+                            @error('about')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                            
                         </div>
-                    </div>
-                    
+                        <div>
+                            <button class="btn btn-primary me-1" type="submit">Submit</button>
+                            <button class="btn btn-danger light ms-1">Cancel</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send</button>
+            </div>		
+            <!-- Add Agents End -->
+
+            <!-- Invite New Agents -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-center">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Invite Agent</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <label class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" placeholder="Enter Email">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <label class="form-label mt-3">First Name<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <label class="form-label mt-3">Last Name<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Surname">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3 invite">
+                                    <label class="form-label">Send invitation email<span class="text-danger">*</span></label>
+                                    <input type ="email" class="form-control " placeholder="+ invite">
+                                </div>
+                            </div>
+                        </div>
+                        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send</button>
+                </div>
+                </div>
             </div>
             </div>
-        </div>
-        </div>
-        <!-- Invite New Agent End -->
+            <!-- Invite New Agent End -->
     @endpush
 @endsection

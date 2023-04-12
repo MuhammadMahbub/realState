@@ -82,7 +82,7 @@
                                         @csrf
                                         @method("PUT")
                                         <div class="modal-body">
-                                            <label for="">Property Type<span class="text-danget">*</span></label>
+                                            <label for="">Property Type<span class="text-danger">*</span></label>
                                             <input type="text" value="{{ $type->type_name }}" name="type_name" placeholder="Rent / Sale" class="form-control">  
                                             @error('type_name')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -154,7 +154,7 @@
                 <form action="{{ route('property_type.store') }}" method="post" class="form-group">
                     @csrf
                     <div class="modal-body">
-                        <label for="">Property Type<span class="text-danget">*</span></label>
+                        <label for="">Property Type<span class="text-danger">*</span></label>
                         <input type="text"  name="type_name" placeholder="Apartment / Shops / Office" class="form-control">  
                         @error('type_name')
                             <p class="text-danger">{{ $message }}</p>

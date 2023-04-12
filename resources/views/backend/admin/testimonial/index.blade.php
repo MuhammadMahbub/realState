@@ -83,7 +83,7 @@
                                         @method("PUT")
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="">Name<span class="text-danget">*</span></label>
+                                                <label for="">Name<span class="text-danger">*</span></label>
                                                 <input type="text" value="{{ $testimonial->name }}" name="name"  class="form-control">  
                                                 @error('name')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -91,7 +91,7 @@
                                             </div>
 
                                             <div class="form-group mt-2">
-                                                <label for=""> Description<span class="text-danget">*</span></label>
+                                                <label for=""> Description<span class="text-danger">*</span></label>
                                                 <textarea name="description"  id="editor__{{ $testimonial->id }}" class="form-control" cols="30" rows="5">{!! $testimonial->description !!}</textarea>
                                                 @error('description')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -101,7 +101,7 @@
                                             <label for="">Previous Image</label>
                                             <img src="{{ asset($testimonial->image) }}" alt="" width="100">
                                             <div class="form-group">
-                                                <label>Image<span class="text-danget">*</span> </label>
+                                                <label>Image<span class="text-danger">*</span> </label>
                                                 <input type="file" class="form-control" name="image" onchange="document.getElementById('image').src=window.URL.createObjectURL(this.files[0])"/>
                                                 <img id="image" width="200">
                                             </div>
@@ -110,7 +110,7 @@
                                             @enderror 
                                             
                                             <div class="form-group">
-                                                <label for="">Rating<span class="text-danget">*</span></label>
+                                                <label for="">Rating<span class="text-danger">*</span></label>
                                                 <input type="number"  name="rating" value="{{ $testimonial->rating }}" placeholder="3" class="form-control">  
                                                 @error('name')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -184,7 +184,7 @@
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
-                            <label for="">Name<span class="text-danget">*</span></label>
+                            <label for="">Name<span class="text-danger">*</span></label>
                             <input type="text"  name="name" placeholder="Name" class="form-control">  
                             @error('name')
                                 <p class="text-danger">{{ $message }}</p>
@@ -192,7 +192,7 @@
                         </div>  
 
                         <div class="form-group mt-2">
-                            <label for="">Description<span class="text-danget">*</span></label>
+                            <label for="">Description<span class="text-danger">*</span></label>
                             <textarea name="description"  id="editor" class="form-control" cols="30" rows="5" placeholder="Short Description"></textarea>
                             @error('description')
                                 <p class="text-danger">{{ $message }}</p>
@@ -200,7 +200,7 @@
                         </div> 
 
                         <div class="form-group mt-2">
-                            <label>Image<span class="text-danget">*</span> </label>
+                            <label>Image<span class="text-danger">*</span> </label>
                             <input type="file" class="form-control" name="image" onchange="document.getElementById('image').src=window.URL.createObjectURL(this.files[0])"/>
             
                             <img id="image" width="200">
@@ -210,7 +210,7 @@
                         @enderror 
                         
                         <div class="form-group">
-                            <label for="">Rating<span class="text-danget">*</span></label>
+                            <label for="">Rating<span class="text-danger">*</span></label>
                             <input type="number"  name="rating" placeholder="3" class="form-control">  
                             @error('name')
                                 <p class="text-danger">{{ $message }}</p>

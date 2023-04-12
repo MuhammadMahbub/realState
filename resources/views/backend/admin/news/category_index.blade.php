@@ -74,7 +74,7 @@
                                         @csrf
                                         @method("PUT")
                                         <div class="modal-body">
-                                            <label for="">News Category<span class="text-danget">*</span></label>
+                                            <label for="">News Category<span class="text-danger">*</span></label>
                                             <input type="text" value="{{ $category->category_name }}" name="category_name" placeholder="" class="form-control">  
                                             @error('category_name')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -155,7 +155,7 @@
                 <form action="{{ route('news_category.store') }}" method="post" class="form-group">
                     <div class="modal-body">
                         @csrf
-                        <label for="">News Category<span class="text-danget">*</span></label>
+                        <label for="">News Category<span class="text-danger">*</span></label>
                         <input type="text"  name="category_name" placeholder="Category" class="form-control">  
                         @error('category_name')
                             <p class="text-danger">{{ $message }}</p>

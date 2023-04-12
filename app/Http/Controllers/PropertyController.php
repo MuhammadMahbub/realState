@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MultiplePropertyImage;
 use App\Models\Property;
 use Illuminate\Support\Str;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Models\PropertyCategory;
 use App\Models\PropertySpecification;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
@@ -21,7 +23,7 @@ class PropertyController extends Controller
             $properties = Property::latest()->get();
             return view('backend.admin.property.index',compact('properties'));
         }else{
-            $properties = Property::where('role_id', Auth::id())->get();
+            $properties = Property::where('role_id', Auth::id())->where('status',1)->get();
             return view('backend.landlord.property.index',compact('properties'));
         }
 
@@ -46,11 +48,16 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        // foreach($request->file('multiple_image') as $imd){
+        //     echo $imd;
+        // }
+        // die;
         $request->validate([
             'category_id'=> 'required',
             'property_type_id'=> 'required',
             'thumbnail_image'=> 'required|image',
             'short_title'=> 'required',
+            'description'=> 'required',
             'price'=> 'required|numeric',
         ]);
 
@@ -77,9 +84,25 @@ class PropertyController extends Controller
         $property->property_id = $request->property_id;
         $property->status = $request->status == 'on' ? 1 : 0;
         $property->isFavorite = $request->isFavorite == 'on' ? 1 : 0;
-        $property->multiple_feature_image = json_encode($request->multiple_feature_image);
+        // $property->multiple_feature_image = json_encode($request->multiple_feature_image);
 
         $property->save();
+
+        if($request->file('multiple_image')){
+            foreach($request->file('multiple_image') as $multi_image){
+                $image_ext      = $property->id . '.' . $multi_image->getClientOriginalExtension();
+                $path = 'backend/property/';
+                $multiple_image = $path.$image_ext;
+                $multi_image->move( $path, $image_ext);
+                
+
+                MultiplePropertyImage::insert([
+                    'property_id' => $property->id,
+                    'multiple_image' => $multiple_image,
+                    'created_at' => Carbon::now()
+                ]);    
+            }
+        }
 
         if(Auth::user()->role == 1){
             return redirect()->route('property.index')->with('success', 'Property Created');
@@ -135,6 +158,10 @@ class PropertyController extends Controller
 
         if($request->hasFile('thumbnail_image'))
         {
+            if($property->thumbnail_image != 'backend/property/default.jpg'){
+                unlink($property->thumbnail_image);
+            }
+
             $image    = $request->file('thumbnail_image');
             $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
             $location = 'backend/property/';
@@ -159,6 +186,22 @@ class PropertyController extends Controller
 
         $property->save();
 
+        if($request->file('multiple_image')){
+            foreach($request->file('multiple_image') as $multi_image){
+                $image_ext      = $property->id . '.' . $multi_image->getClientOriginalExtension();
+                $path = 'backend/property/';
+                $multiple_image = $path.$image_ext;
+                $multi_image->move( $path, $image_ext);
+                
+
+                MultiplePropertyImage::insert([
+                    'property_id' => $property->id,
+                    'multiple_image' => $multiple_image,
+                    'created_at' => Carbon::now()
+                ]);    
+            }
+        }
+
         if(Auth::user()->role == 1){
             return redirect()->route('property.index')->with('success', 'Property Updated');
         }else{
@@ -176,8 +219,29 @@ class PropertyController extends Controller
         foreach($specifications as $specification){
             $specification->delete();
         }
+
+        $multi_image = MultiplePropertyImage::where('property_id',$id)->get();
+
+        foreach($multi_image as $multi){
+            $multi->delete();
+        }
         
-        Property::findOrFail($id)->delete();
+        $property = Property::findOrFail($id);
+        if($property->thumbnail_image != 'backend/property/default.jpg'){
+            unlink($property->thumbnail_image);
+        }
+        $property->delete();
         return back()->with('success', 'Property Deleted');
+    }
+
+    public function remove_multiple_image(Request $request){
+        // return $request->status;
+        $image = MultiplePropertyImage::findOrFail($request->data_id);
+
+        $image->delete();
+
+        return response()->json([
+            'message' => "Image deleted"
+        ]);
     }
 }

@@ -9,7 +9,7 @@ class Property extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     public function relationwithPropertyType(){
         return $this->belongsTo(PropertyType::class, 'property_type_id');
@@ -21,6 +21,10 @@ class Property extends Model
 
     public function relationwithPropertySpecification(){
         return $this->hasMany(PropertySpecification::class,'property_id','id');
+    }
+
+    public function relationwithMultipleImage(){
+        return $this->hasMany(MultiplePropertyImage::class,'property_id','id');
     }
 
 

@@ -29,7 +29,7 @@
             <div class="card-body depostit-card p-0">
                 <div class="depostit-card-media d-flex justify-content-between pb-0">
                     <div>
-                        <h6>Active Landlsord</h6>
+                        <h6>Active Landlord</h6>
                         <h3>0</h3>
                     </div>
                     <div class="icon-box bg-danger-light">
@@ -50,7 +50,7 @@
             <div class="card-body depostit-card p-0">
                 <div class="depostit-card-media d-flex justify-content-between pb-0">
                     <div>
-                        <h6>None-Active Landlsord</h6>
+                        <h6>None-Active Landlord</h6>
                         <h3>0</h3>
                     </div>
                     <div class="icon-box bg-danger-light">
@@ -71,7 +71,7 @@
             <div class="card-body depostit-card p-0">
                 <div class="depostit-card-media d-flex justify-content-between pb-0">
                     <div>
-                        <h6>Verified Landlsord</h6>
+                        <h6>Verified Landlord</h6>
                         <h3>0</h3>
                     </div>
                     <div class="icon-box bg-danger-light">
@@ -92,7 +92,7 @@
             <div class="card-body depostit-card p-0">
                 <div class="depostit-card-media d-flex justify-content-between pb-0">
                     <div>
-                        <h6>Commission From Landlsord</h6>
+                        <h6>Commission From Landlord</h6>
                         <h3>0</h3>
                     </div>
                     <div class="icon-box bg-danger-light">
@@ -113,7 +113,7 @@
             <div class="card-body depostit-card p-0">
                 <div class="depostit-card-media d-flex justify-content-between pb-0">
                     <div>
-                        <h6>Subscription From Landlsord</h6>
+                        <h6>Subscription From Landlord</h6>
                         <h3>0</h3>
                     </div>
                     <div class="icon-box bg-danger-light">
@@ -134,7 +134,7 @@
             <div class="card-body depostit-card p-0">
                 <div class="depostit-card-media d-flex justify-content-between pb-0">
                     <div>
-                        <h6>Total Services Listed By Landlsord</h6>
+                        <h6>Total Services Listed By Landlord</h6>
                         <h3>0</h3>
                     </div>
                     <div class="icon-box bg-danger-light">
@@ -153,7 +153,7 @@
             <div class="card-body depostit-card p-0">
                 <div class="depostit-card-media d-flex justify-content-between pb-0">
                     <div>
-                        <h6>Total Revenue From Landlsord</h6>
+                        <h6>Total Revenue From Landlord</h6>
                         <h3>$54,245,741.00</h3>
                     </div>
                     <div class="icon-box bg-danger-light">
@@ -174,7 +174,7 @@
 <div class="col-lg-12">
     <div class="card overflow-hidden">
         <div class="card-header border-0 pb-0 flex-wrap">
-            <h4 class="heading mb-0">Landlsord Analytics</h4>
+            <h4 class="heading mb-0">Landlord Analytics</h4>
             <ul class="nav nav-pills mix-chart-tab" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation" style="margin-right:50px;">
                 <button class="nav-link" type="button"  aria-selected="false"><i class="fa fa-file"></i> Export Report</button>
@@ -219,12 +219,15 @@
             <div class="card-body p-0">
                 <div class="table-responsive active-projects style-1">
                 <div class="tbl-caption">
-                    <h4 class="heading mb-0">Landlsord List</h4>
+                    <h4 class="heading mb-0">Landlord List</h4>
                     <div>
                         <a class="btn btn-primary btn-sm" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">+ Add Landlord</a>
                         <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                  + Invite Landlord
-                                </button>
+                            + Invite Contractor
+                        </button>
+                        {{-- <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                            + Invite Landlord
+                        </button> --}}
                     </div>
                 </div>
                     <table id="empoloyees-tblwrapper" class="table">
@@ -240,61 +243,65 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><span>1</span></td>
-                                <td>
-                                    <div class="products">
-                                        <img src="{{asset('backend/assets/images')}}/contacts/pic2.jpg" class="avatar avatar-md" alt="">
-                                        <div>
-                                            <h6>Liam Antony</h6>
-                                            <span>Landlord</span>	
-                                        </div>	
-                                    </div>
-                                </td>
-                                <td><span>4</span></td>
-                                <td><span class="text-primary">abc@gmail.com</span></td>
-                                <td>
-                                    <span>+91 123 456 7890</span>
-                                </td>
-                                <td>
-                                    <span>Dar es salaam</span>
-                                </td>
-                                <td>
-                                    <select>
-                                        <option>Edit</option>
-                                        <option>Block</option>
-                                        <option>Delete</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><span>2</span></td>
-                                <td>
-                                    <div class="products">
-                                        <img src="{{asset('backend/assets/images')}}/contacts/pic2.jpg" class="avatar avatar-md" alt="">
-                                        <div>
-                                            <h6>John Doe</h6>
-                                            <span>Landlord</span>	
-                                        </div>	
-                                    </div>
-                                </td>
-                                <td><span>2</span></td>
-                                <td><span class="text-primary">abc@gmail.com</span></td>
-                                <td>
-                                    <span>+91 123 456 7890</span>
-                                </td>
-                                <td>
-                                    <span>Dar es salaam</span>
-                                </td>
-                                <td>
-                                    <select>
-                                        <option>Edit</option>
-                                        <option>Block</option>
-                                        <option>Delete</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            
+                            @foreach ($contractors as $contractor)
+                                <tr>
+                                    <td><span>1</span></td>
+                                    <td>
+                                        <div class="products">
+                                            @if ($contractor->image)
+                                            <img src="{{ asset($contractor->image) }}" class="avatar avatar-md" alt="">
+                                            @else
+                                            <img src="{{asset('backend/default.jpg')}}" class="avatar avatar-md" alt="">
+                                            @endif
+                                            
+                                            <div>
+                                                <h6>{{ $contractor->name }}</h6>
+                                                <span>Contractor</span>	
+                                            </div>	
+                                        </div>
+                                    </td>
+                                    <td><span>4</span></td>
+                                    <td><span class="text-primary">{{ $contractor->email ?? '' }}</span></td>
+                                    <td>
+                                        <span>{{ $contractor->phone ?? '' }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{ $contractor->location ?? '' }}</span>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="option__{{$contractor->id}}" value="{{$contractor->id}}">
+                                        <select id="statusChange__{{$contractor->id}}" class="optionChange">
+                                            <option value="1" {{$contractor->landlord_choice == 1 ? 'selected' : ''}}>Choose</option>
+                                            <option value="0" {{$contractor->landlord_choice == 0 ? 'selected' : ''}}>Block</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                @push('scripts')
+                                    <script>
+                                        $(document).ready(function(){ 
+                                        $('#statusChange__{{$contractor->id}}').change(function(){
+                                            let status = $(this).val();
+                                            let user_id = $('#option__{{$contractor->id}}').val();
+                                            // alert(status);
+                                            $.ajax({
+                                                url: "{{ route('landlord.choose_block') }}",
+                                                type: "POST",
+                                                data: {
+                                                    user_id : user_id,
+                                                    status : status,
+                                                },
+                                                success: function(data){
+                                                    console.log(data);
+                                                    toastr.success(data.message)
+                                                },
+                                            });
+                                        });
+                                        });
+                                    </script>
+                                @endpush
+                                
+                            @endforeach
                         </tbody>
                         
                     </table>
@@ -305,144 +312,142 @@
 </div>
 
 @push('modals')
-        <!-- Add Landlords -->
-        <div class="offcanvas offcanvas-end customeoff" tabindex="-1" id="offcanvasExample">
-            <div class="offcanvas-header">
-            <h5 class="modal-title" id="#gridSystemModal">Add Landlord</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-                  <i class="fa-solid fa-xmark"></i>
-              </button>
+    <!-- Add Landlords -->
+    <div class="offcanvas offcanvas-end customeoff" tabindex="-1" id="offcanvasExample">
+        <div class="offcanvas-header">
+        <h5 class="modal-title" id="#gridSystemModal">Add Landlord</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="container-fluid">
+                <div>
+                    <label>Profile Picture</label>
+                    <div class="dz-default dlab-message upload-img mb-3">	
+                        <form action="#" class="dropzone">
+                            <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20.5 20V35" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M34.4833 30.6501C36.1088 29.7638 37.393 28.3615 38.1331 26.6644C38.8731 24.9673 39.027 23.0721 38.5703 21.2779C38.1136 19.4836 37.0724 17.8926 35.6111 16.7558C34.1497 15.619 32.3514 15.0013 30.4999 15.0001H28.3999C27.8955 13.0488 26.9552 11.2373 25.6498 9.70171C24.3445 8.16614 22.708 6.94647 20.8634 6.1344C19.0189 5.32233 17.0142 4.93899 15.0001 5.01319C12.9861 5.0874 11.015 5.61722 9.23523 6.56283C7.45541 7.50844 5.91312 8.84523 4.7243 10.4727C3.53549 12.1002 2.73108 13.9759 2.37157 15.959C2.01205 17.9421 2.10678 19.9809 2.64862 21.9222C3.19047 23.8634 4.16534 25.6565 5.49994 27.1667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div class="fallback">
+                                <input name="file" type="file" multiple>
+                                
+                            </div>
+                        </form>
+                    </div>	
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-xl-6 mb-3">
+                            <label for="exampleFormControlInput2" class="form-label">Landlord Name<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Landlord Name">
+                        </div>	
+                        <div class="col-xl-6 mb-3">
+                            <label for="exampleFormControlInput3" class="form-label">Landlord Email<span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="Enter Landlord Name">
+                        </div>
+                        <div class="col-xl-6 mb-3">
+                            <label for="exampleFormControlInput4" class="form-label">Password<span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="exampleFormControlInput4" placeholder="Enter Landlord Password">
+                        </div>
+                        <div class="col-xl-6 mb-3">
+                            <label class="form-label">Country<span class="text-danger">*</span></label>
+                            <select class="default-select form-control">
+                                <option  data-display="Select">Please select</option>
+                                <option value="html">Tanzania</option>
+                                <option value="css">Kenya</option>
+                                <option value="javascript">Uganda</option>
+                                <option>Rwanda</option>
+                                <option>Burundi</option>
+                                <option>Botswana</option>
+                                <option>Namibia</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-6 mb-3">
+                            <label class="form-label">City<span class="text-danger">*</span></label>
+                            <select class="default-select form-control">
+                                <option  data-display="Select">Please select</option>
+                                <option value="html">Dar es salaam</option>
+                                <option value="css">Mbeya</option>
+                                <option value="javascript">Zanzibar</option>
+                                <option>Mwanza</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-6 mb-3">
+                            <label for="exampleFormControlInput88" class="form-label">Mobile<span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="exampleFormControlInput88" placeholder="Enter Phone Number">
+                        </div>
+                        <div class="col-xl-6 mb-3">
+                            <label class="form-label">Gender<span class="text-danger">*</span></label>
+                            <select class="default-select form-control">
+                                <option  data-display="Select">Please select</option>
+                                <option value="html">Male</option>
+                                <option value="css">Female</option>
+                                <option value="javascript">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-xl-12 mb-3">
+                            <label class="form-label">About<span class="text-danger">*</span></label>
+                            <textarea rows="2" class="form-control"></textarea>
+                        </div>	
+                    </div>
+                    <div>
+                        <button class="btn btn-primary me-1">Submit</button>
+                        <button class="btn btn-danger light ms-1">Cancel</button>
+                    </div>
+                </form>
             </div>
-            <div class="offcanvas-body">
-              <div class="container-fluid">
-                  <div>
-                      <label>Profile Picture</label>
-                      <div class="dz-default dlab-message upload-img mb-3">	
-                          <form action="#" class="dropzone">
-                              <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                  <path d="M20.5 20V35" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                  <path d="M34.4833 30.6501C36.1088 29.7638 37.393 28.3615 38.1331 26.6644C38.8731 24.9673 39.027 23.0721 38.5703 21.2779C38.1136 19.4836 37.0724 17.8926 35.6111 16.7558C34.1497 15.619 32.3514 15.0013 30.4999 15.0001H28.3999C27.8955 13.0488 26.9552 11.2373 25.6498 9.70171C24.3445 8.16614 22.708 6.94647 20.8634 6.1344C19.0189 5.32233 17.0142 4.93899 15.0001 5.01319C12.9861 5.0874 11.015 5.61722 9.23523 6.56283C7.45541 7.50844 5.91312 8.84523 4.7243 10.4727C3.53549 12.1002 2.73108 13.9759 2.37157 15.959C2.01205 17.9421 2.10678 19.9809 2.64862 21.9222C3.19047 23.8634 4.16534 25.6565 5.49994 27.1667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                  <path d="M27.1666 26.6667L20.4999 20L13.8333 26.6667" stroke="#DADADA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>
-                              <div class="fallback">
-                                  <input name="file" type="file" multiple>
-                                  
-                              </div>
-                          </form>
-                      </div>	
-                  </div>
-                  <form>
-                      <div class="row">
-                          <div class="col-xl-6 mb-3">
-                              <label for="exampleFormControlInput2" class="form-label">Landlord Name<span class="text-danger">*</span></label>
-                              <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Enter Landlord Name">
-                          </div>	
-                          <div class="col-xl-6 mb-3">
-                              <label for="exampleFormControlInput3" class="form-label">Landlord Email<span class="text-danger">*</span></label>
-                              <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="Enter Landlord Name">
-                          </div>
-                          <div class="col-xl-6 mb-3">
-                              <label for="exampleFormControlInput4" class="form-label">Password<span class="text-danger">*</span></label>
-                              <input type="password" class="form-control" id="exampleFormControlInput4" placeholder="Enter Landlord Password">
-                          </div>
-                          <div class="col-xl-6 mb-3">
-                              <label class="form-label">Country<span class="text-danger">*</span></label>
-                              <select class="default-select form-control">
-                                  <option  data-display="Select">Please select</option>
-                                  <option value="html">Tanzania</option>
-                                  <option value="css">Kenya</option>
-                                  <option value="javascript">Uganda</option>
-                                  <option>Rwanda</option>
-                                  <option>Burundi</option>
-                                  <option>Botswana</option>
-                                  <option>Namibia</option>
-                              </select>
-                          </div>
-                          <div class="col-xl-6 mb-3">
-                              <label class="form-label">City<span class="text-danger">*</span></label>
-                              <select class="default-select form-control">
-                                  <option  data-display="Select">Please select</option>
-                                  <option value="html">Dar es salaam</option>
-                                  <option value="css">Mbeya</option>
-                                  <option value="javascript">Zanzibar</option>
-                                  <option>Mwanza</option>
-                              </select>
-                          </div>
-                          <div class="col-xl-6 mb-3">
-                              <label for="exampleFormControlInput88" class="form-label">Mobile<span class="text-danger">*</span></label>
-                              <input type="number" class="form-control" id="exampleFormControlInput88" placeholder="Enter Phone Number">
-                          </div>
-                          <div class="col-xl-6 mb-3">
-                              <label class="form-label">Gender<span class="text-danger">*</span></label>
-                              <select class="default-select form-control">
-                                  <option  data-display="Select">Please select</option>
-                                  <option value="html">Male</option>
-                                  <option value="css">Female</option>
-                                  <option value="javascript">Other</option>
-                              </select>
-                          </div>
-                          <div class="col-xl-12 mb-3">
-                              <label class="form-label">About<span class="text-danger">*</span></label>
-                              <textarea rows="2" class="form-control"></textarea>
-                          </div>	
-                      </div>
-                      <div>
-                          <button class="btn btn-primary me-1">Submit</button>
-                          <button class="btn btn-danger light ms-1">Cancel</button>
-                      </div>
-                  </form>
-                </div>
+        </div>
+        </div>		
+        <!-- Add Landlords End -->
+
+        <!-- Invite New Landlords -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-center">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel1">Invite Contractor</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>		
-          <!-- Add Landlords End -->
-  
-          <!-- Invite New Landlords -->
-          <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-center">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel1">Invite Landlord</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                      <div class="row">
-                          <div class="col-xl-12">
-                              <label class="form-label">Email ID<span class="text-danger">*</span></label>
-                              <input type="email" class="form-control" placeholder="Enter Email">
-                              <div class="row">
-                                  <div class="col-xl-6">
-                                      <label class="form-label mt-3">First Name<span class="text-danger">*</span></label>
-                                      <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="Name">
-                                      </div>
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label class="form-label mt-3">Last Name<span class="text-danger">*</span></label>
-                                      <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="Surname">
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="mt-3 invite">
-                                  <label class="form-label">Send invitation email<span class="text-danger">*</span></label>
-                                  <input type ="email" class="form-control " placeholder="+ invite">
-                              </div>
-                              
-                      
-                          </div>
-                      </div>
-                      
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Send</button>
-                </div>
-              </div>
+            <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <label class="form-label">Email ID<span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" placeholder="Enter Email">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <label class="form-label mt-3">First Name<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <label class="form-label mt-3">Last Name<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Surname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 invite">
+                                <label class="form-label">Send invitation email<span class="text-danger">*</span></label>
+                                <input type ="email" class="form-control " placeholder="+ invite">
+                            </div>
+                        </div>
+                    </div>
+                    
             </div>
-          </div>
-          <!-- Invite New Landlord End -->
-    @endpush
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- Invite New Landlord End -->
+@endpush
 
 @endsection
 

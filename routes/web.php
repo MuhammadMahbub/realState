@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordController;
 use App\Http\Controllers\NewsCategoryController;
@@ -11,6 +13,8 @@ use App\Http\Controllers\PropertyCategoryController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertySpecificationController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::get('/role/shift/{id}', [AdminController::class, 'role_shift'])->name('role_shift');
+
+    // ckeditor image show 
+    Route::post('ckeditor/image/uplaod', [AdminController::class, 'ckeditor_image_uplaod'])->name('ckeditor_image.upload');
+    
+
 });
 
 
@@ -51,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     Route::get('/all/users', [AdminController::class, 'all_users'])->name('admin.all_users');
     Route::delete('/delete/user/{id}', [AdminController::class, 'user_destroy'])->name('admin.user_destroy');
     Route::post('/approve/pending', [AdminController::class, 'approve_pending'])->name('approve_pending');
+    Route::post('property/approve/pending', [AdminController::class, 'property_status_change'])->name('property_status_change');
 
     //property management
     Route::resource('property_category', PropertyCategoryController::class);
@@ -58,6 +68,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     Route::get('property/show/{slug}', [PropertyController::class, 'property_show'])->name('property_show');
     Route::resource('property_type', PropertyTypeController::class);
     Route::resource('property_specification', PropertySpecificationController::class);
+    Route::post('/remove/multiple/image', [PropertyController::class, 'remove_multiple_image'])->name('remove_multiple_image');
 
     //news management
     Route::resource('news_category', NewsCategoryController::class);
@@ -65,6 +76,18 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
 
     // testimonial 
     Route::resource('testimonial', TestimonialController::class);
+
+    // Banner 
+    Route::resource('banner', BannerController::class);
+
+    // Contact 
+    Route::resource('contact', ContactController::class);
+
+    // Settings 
+    Route::resource('setting', SettingController::class);
+    
+    // Subscribe 
+    Route::resource('subscribe', SubscribeController::class);
 });
 
 Route::group(['prefix' => 'agent', 'middleware'=> ['agent', 'auth'],], function() {
@@ -83,6 +106,8 @@ Route::group(['prefix' => 'landlord',"as"=>'landlord.', 'middleware'=> ['landlor
     Route::resource('property', PropertyController::class);
     Route::get('property/show/{slug}', [PropertyController::class, 'property_show'])->name('property_show');
     Route::resource('property_specification', PropertySpecificationController::class);
+
+    Route::post('/choose/block', [LandlordController::class, 'choose_block'])->name('choose_block');
 });
 
 Route::group(['prefix' => 'contractor', 'middleware'=> ['contractor', 'auth'],], function() {

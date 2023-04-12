@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('website')->nullable();
             $table->string('social_links')->nullable();
+            $table->boolean('landlord_choice')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('status')->default(0)->comment('approve=1,disapprove=0');
             $table->rememberToken();

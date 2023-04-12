@@ -37,9 +37,19 @@ class PropertyCategoryController extends Controller
 
         $category = new PropertyCategory();
 
+        if($request->hasFile('image'))
+        {
+            $image    = $request->file('image');
+            $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
+            $location = 'backend/property/';
+            $last_image = $location.$imag_ext;
+            $image->move( $location, $imag_ext);
+        }
+
         $category->category_name = $request->category_name;
         $category->property_qty = $request->property_qty;
         $category->description = $request->description;
+        $category->image = $last_image;
 
         $category->save();
 
@@ -73,6 +83,16 @@ class PropertyCategoryController extends Controller
         ]);
 
         $category = PropertyCategory::findOrFail($id);
+
+        if($request->hasFile('image'))
+        {
+            $image    = $request->file('image');
+            $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
+            $location = 'backend/property/';
+            $last_image = $location.$imag_ext;
+            $image->move( $location, $imag_ext);
+            $category->image = $last_image;
+        }
 
         $category->category_name = $request->category_name;
         $category->property_qty = $request->property_qty;

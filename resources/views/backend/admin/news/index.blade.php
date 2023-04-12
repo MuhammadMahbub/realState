@@ -42,7 +42,7 @@
                             <th>Category</th>
                             <th>Title</th>
                             <th>Image</th>
-                            <th>Description</th>
+                            {{-- <th>Description</th> --}}
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -55,7 +55,7 @@
                             <td>
                                 <img src="{{ asset($news->image ?? '') }}" alt="NO IMAGE" width="150">
                             </td>
-                            <td>{!! Str::limit($news->description, 100) !!}</td>
+                            {{-- <td>{!! Str::limit($news->description, 100) !!}</td> --}}
                             
                             <td>
                                 <div class="dropdown">
@@ -85,7 +85,7 @@
                                         @method("PUT")
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="">News Category<span class="text-danget">*</span></label>
+                                                <label for="">News Category<span class="text-danger">*</span></label>
                                                 <select name="category_id" id="" class="form-control">
                                                     <option value selected>--select one--</option>
                                                     @foreach ($categories as $category)
@@ -98,7 +98,7 @@
                                             </div>
                             
                                             <div class="form-group mt-2">
-                                                <label for=""> Title<span class="text-danget">*</span></label>
+                                                <label for=""> Title<span class="text-danger">*</span></label>
                                                 <input type="text" value="{{ $news->title }}" name="title" placeholder="" class="form-control">  
                                                 @error('title')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -106,7 +106,7 @@
                                             </div>
                                             
                                             <div class="form-group mt-2">
-                                                <label for="">Description<span class="text-danget">*</span></label>
+                                                <label for="">Description<span class="text-danger">*</span></label>
                                                 <textarea name="description"  id="editor__{{ $news->id }}" cols="30" rows="10" class="form-control">{{ $news->description }}</textarea>
                                                 @error('description')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -119,7 +119,7 @@
                                                 <img src="{{ asset($news->image) }}" width="200">
                                             </div>
                                             <div class="form-group">
-                                                <label> Image <span class="text-danget">*</span></label>
+                                                <label> Image <span class="text-danger">*</span></label>
                                                 <input type="file" class="form-control" name="image" onchange="document.getElementById('edit_image__{{ $news->id }}').src=window.URL.createObjectURL(this.files[0])"/>
                                 
                                                 <div class="mt-2 mb-2">
@@ -176,7 +176,11 @@
                         @push('scripts')
                         <script>
                             ClassicEditor
-                                .create( document.querySelector( '#editor__{{ $news->id }}' ) )
+                                .create( document.querySelector( '#editor__{{ $news->id }}' ) ,{
+                                    ckfinder: {
+                                        uploadUrl: "{{route('ckeditor_image.upload').'?_token='.csrf_token()}}"
+                                    }
+                                } )
                         </script>
                         @endpush
 
@@ -201,7 +205,7 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="">News Category<span class="text-danget">*</span></label>
+                                    <label for="">News Category<span class="text-danger">*</span></label>
                                     <select name="category_id" id="" class="form-control">
                                         <option value selected>--select one--</option>
                                         @foreach ($categories as $category)
@@ -214,7 +218,7 @@
                                 </div>
                     
                                 <div class="form-group mt-2">
-                                    <label for="">Title<span class="text-danget">*</span></label>
+                                    <label for="">Title<span class="text-danger">*</span></label>
                                     <input type="text"  name="title" placeholder="Title" class="form-control">  
                                     @error('short_title')
                                         <p class="text-danger">{{ $message }}</p>
@@ -222,7 +226,7 @@
                                 </div>
                                 
                                 <div class="form-group mt-2">
-                                    <label for="">Description<span class="text-danget">*</span></label>
+                                    <label for="">Description<span class="text-danger">*</span></label>
                                     <textarea name="description" id="editor" cols="30" rows="10" class="form-control"></textarea>
                                     @error('description')
                                         <p class="text-danger">{{ $message }}</p>
@@ -230,7 +234,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>  Image <span class="text-danget">*</span></label>
+                                    <label>  Image <span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="image" onchange="document.getElementById('thumbnail_image').src=window.URL.createObjectURL(this.files[0])"/>
                     
                                     <div class="mt-2 mb-2">

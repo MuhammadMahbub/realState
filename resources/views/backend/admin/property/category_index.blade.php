@@ -41,6 +41,7 @@
                         <tr>
                             <th>SL</th>
                             <th>Category Name</th>
+                            <th>Image</th>
                             <th>Quantity</th>
                             <th>Description</th>
                             <th>Action</th>
@@ -54,10 +55,13 @@
                                 <span>{{ $category->category_name ?? '' }}</span>
                             </td>
                             <td>
+                                <img src="{{ asset($category->image ?? '') }}" alt="" width="150">
+                            </td>
+                            <td>
                                 <span>{{ $category->property_qty ?? '' }}</span>
                             </td>
                             <td>
-                                <span>{{ $category->description ?? '' }}</span>
+                                <span>{{!! $category->description ?? '' !!}</span>
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -81,19 +85,35 @@
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">Property Category</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="{{ route('property_category.update',$category->id) }}" method="post" class="form-group">
+                                        <form action="{{ route('property_category.update',$category->id) }}" method="post" class="form-group" enctype="multipart/form-data">
                                             @csrf
                                             @method("PUT")
                                             <div class="modal-body">
-                                                <label for="">Property Category<span class="text-danget">*</span></label>
+                                                <label for="" class="mt-2">Property Category<span class="text-danget">*</span></label>
                                                 <input type="text" value="{{ $category->category_name }}" name="category_name" placeholder="Rent / Sale" class="form-control">  
                                                 @error('category_name')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror  
-                                                <label for="">Category Quantity</label>
+
+                                                <div class="form-group">
+                                                    <label class="mt-2">Previous Image </label><br>
+                                                    
+                                                    <img src="{{ asset($category->image) }}" width="200" class="mt-2">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="mt-2"> Image <span class="text-danget">*</span></label>
+                                                    <input type="file" class="form-control" name="image" onchange="document.getElementById('thumbnail_image__{{ $category->id }}').src=window.URL.createObjectURL(this.files[0])"/>
+                                    
+                                                    <img id="thumbnail_image__{{ $category->id }}" width="200" class="mt-2">
+                                                </div>
+                                                @error('image')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+
+                                                <label class="mt-2" for="">Category Quantity</label>
                                                 <input type="number" name="property_qty" value="{{ $category->property_qty }}" class="form-control">
 
-                                                <label for="">Short description<span class="text-danget">*</span></label>
+                                                <label class="mt-2" for="">Short description<span class="text-danget">*</span></label>
                                                 <textarea name="description"  id="editor__{{ $category->id }}" class="form-control" cols="30" rows="5" placeholder="Short Description">{{ $category->description }}</textarea>
                                                 @error('description')
                                                     <p class="text-danger">{{ $message }}</p>
@@ -169,7 +189,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Property Category</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('property_category.store') }}" method="post" class="form-group">
+                <form action="{{ route('property_category.store') }}" method="post" class="form-group" enctype="multipart/form-data">
                     <div class="modal-body">
                         @csrf
                         <label for="">Property Category<span class="text-danget">*</span></label>
@@ -177,6 +197,16 @@
                         @error('category_name')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror  
+
+                        <div class="form-group mt-3">
+                            <label> Image <span class="text-danget">*</span></label>
+                            <input type="file" class="form-control" name="image" onchange="document.getElementById('thumbnail_image').src=window.URL.createObjectURL(this.files[0])"/>
+            
+                            <img id="thumbnail_image" width="200" class="mt-2">
+                        </div>
+                        @error('image')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
 
                         <label for="" class="mt-3">Category Quantity</label>
                         <input type="number" name="property_qty" class="form-control">

@@ -35,6 +35,7 @@ class NewsController extends Controller
             'category_id' => 'required',
             'title' => 'required',
             'description' => 'required',
+            'image' => 'required|image',
         ]);
 
         $news = new News();
@@ -84,12 +85,17 @@ class NewsController extends Controller
             'category_id' => 'required',
             'title' => 'required',
             'description' => 'required',
+            'image' => 'image',
         ]);
 
         $news = News::findOrFail($id);
 
         if($request->hasFile('image'))
         {
+            if($news->image != 'backend/news/default.jpg'){
+                unlink($news->image);
+            }
+            
             $image    = $request->file('image');
             $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
             $location = 'backend/news/';
@@ -112,7 +118,11 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        News::findOrFail($id)->delete();
-        return back()->with('success', 'News Updated');
+        $news = News::findOrFail($id);
+        if($news->image != 'backend/news/default.jpg'){
+            unlink($news->image);
+        }
+        $news->delete();
+        return back()->with('success', 'News Deleted');
     }
 }

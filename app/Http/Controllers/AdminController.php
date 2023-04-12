@@ -96,6 +96,10 @@ class AdminController extends Controller
 
         if($request->hasFile('image'))
         {
+            if($user->image != 'backend/default.jpg'){
+                unlink($user->image);
+            }
+
             $image    = $request->file('image');
             $imag_ext      = uniqid() . '.' . $image->getClientOriginalExtension();
             $location = 'backend/profile/';
@@ -125,6 +129,18 @@ class AdminController extends Controller
         $user->status = $request->status;
 
         $user->save();
+
+        return response()->json([
+            'message' => "Status Updated"
+        ]);
+    }
+    public function property_status_change(Request $request){
+        // return $request->status;
+        $property = Property::findOrFail($request->property_id);
+
+        $property->status = $request->status;
+
+        $property->save();
 
         return response()->json([
             'message' => "Status Updated"
@@ -165,6 +181,21 @@ class AdminController extends Controller
             return redirect()->route('login');
         }else{
             return back()->with('fail', 'Your OTP is wrong');
+        }
+    }
+
+    public function ckeditor_image_uplaod(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time() . '.' . $extension;
+    
+            $request->file('upload')->move(public_path('media'), $fileName);
+    
+            $url = asset('media/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded'=> 1, 'url' => $url]);
         }
     }
 }

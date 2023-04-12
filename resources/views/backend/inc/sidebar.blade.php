@@ -14,6 +14,15 @@
                 </a>
             </li>
 
+            {{-- Banner  --}}
+            <li><a href="{{ route('banner.index') }}" class="" aria-expanded="false">
+                <div class="menu-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="0.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                </div>	
+                    <span class="nav-text">Banner</span>
+                </a>
+            </li>
+
             {{-- All Users  --}}
             <li><a href="{{ route('admin.all_users') }}" class="" aria-expanded="false">
                 <div class="menu-icon">
@@ -38,7 +47,7 @@
                 <ul aria-expanded="false" class="{{ request()->routeIs('property*') ? 'mm-collapse mm-show left' : '' }}">
                     <li><a href="{{ route('property_category.index') }}">Property Category</a></li>
                     <li><a href="{{ route('property_type.index') }}">Property Type</a></li>
-                    <li class="{{ request()->routeIs(['property.index' , 'property.create' , 'property.edit']) ? 'mm-active' : '' }}"><a class="{{ request()->routeIs(['property.index' , 'property.create' , 'property.edit']) ? 'mm-active' : '' }}" href="{{ route('property.index') }}">Property List</a></li>
+                    <li class="{{ request()->routeIs(['property.index' , 'property.create' , 'property.edit','property.show']) ? 'mm-active' : '' }}"><a class="{{ request()->routeIs(['property.index' , 'property.create' , 'property.edit','property.show']) ? 'mm-active' : '' }}" href="{{ route('property.index') }}">Property List</a></li>
                     <li><a href="{{ route('property_specification.index') }}">Property Specification</a></li>
                 </ul>
             </li>
@@ -55,7 +64,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('news_category.index') }}">News Category</a></li>
-                    <li><a href="{{ route('news.index') }}">News/Blogs</a></li>
+                    <li class="{{ request()->routeIs(['news.index','news.show']) ? 'mm-active' : '' }}"><a class="{{ request()->routeIs(['news.index','news.show']) ? 'mm-active' : '' }}" href="{{ route('news.index') }}">News/Blogs</a></li>
                 </ul>
             </li>
 
@@ -65,6 +74,24 @@
                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="0.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><rect x="7" y="7" width="3" height="9"></rect><rect x="14" y="7" width="3" height="5"></rect></svg>
                 </div>	
                     <span class="nav-text">Testimonial</span>
+                </a>
+            </li>
+
+            {{-- Contact  --}}
+            <li><a href="{{ route('contact.index') }}" class="" aria-expanded="false">
+                <div class="menu-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="0.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>	
+                    <span class="nav-text">Contact</span>
+                </a>
+            </li>
+
+            {{-- Settings  --}}
+            <li><a href="{{ route('setting.index') }}" class="" aria-expanded="false">
+                <div class="menu-icon">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="0.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </div>	
+                    <span class="nav-text">Settings</span>
                 </a>
             </li>
 

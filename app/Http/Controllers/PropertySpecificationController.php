@@ -14,13 +14,13 @@ class PropertySpecificationController extends Controller
      */
     public function index()
     {
-        $specifications = PropertySpecification::latest()->get();
+        // $specifications = PropertySpecification::latest()->get();
         $properties = Property::latest()->get();
 
         if(Auth::user()->role == 1){
-            return view('backend.admin.property.property_specification', compact('specifications','properties'));
+            return view('backend.admin.property.property_specification', compact('properties'));
         }else{
-            return view('backend.landlord.property.property_specification', compact('specifications','properties'));
+            return view('backend.landlord.property.property_specification', compact('properties'));
         }
        
     }
@@ -82,30 +82,35 @@ class PropertySpecificationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
+        // return $id;
         $request->validate([
             'icon' =>'required',
             'specification' =>'required',
             'property_id' =>'required',
         ]);
 
-        $specification = PropertySpecification::findOrFail($id);
+        // return $property_id = Property::findOrFail($id);
+        $specifications = PropertySpecification::where('property_id', $id)->get();
 
-        $specification->specification = $request->specification;
-        $specification->icon = $request->icon;
-        $specification->property_id = $request->property_id;
+        foreach($specifications as $item)
+        {
+            $item->delete();
+        }
+        // $specification->specification = $request->specification;
+        // $specification->icon = $request->icon;
+        // $specification->property_id = $request->property_id;
 
-        $specification->save();
-        
         // $specification->save();
-        // foreach($request->specification as $key=>$opt){
-        //     $specification->update([
-        //         'property_id' => $request->property_id,
-        //         'icon' => $request->icon[$key],
-        //         'specification' => $request->specification[$key],
-        //     ]);
-        // }
+        
+        foreach($request->specification as $key=>$opt){
+            PropertySpecification::insert([
+                'property_id' => $id,
+                'icon' => $request->icon[$key],
+                'specification' => $request->specification[$key],
+            ]);
+        }
 
         return back()->with('success', 'Property Specification Updated');
     }

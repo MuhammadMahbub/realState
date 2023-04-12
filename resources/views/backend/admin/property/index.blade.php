@@ -39,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Landlord</th>
+                            <th>Creator</th>
                             <th>Category Name</th>
                             <th>Property Type</th>
                             <th>Status</th>
@@ -54,7 +54,14 @@
                             <td>{{ $property->relationWithUser->name ?? ''}}</td>
                             <td>{{ $property->relationwithPropertyCategory->category_name ?? ''}}</td>
                             <td>{{ $property->relationwithPropertyType->type_name ?? ''}}</td>
-                            <td>{{ $property->status == 0 ? 'Pending' : 'Active' }}</td>
+                            {{-- <td>{{ $property->status == 0 ? 'Pending' : 'Active' }}</td> --}}
+                            <td>
+                                <input type="hidden" id="option__{{$property->id}}" value="{{$property->id}}">
+                                <select id="statusChange__{{$property->id}}" class="optionChange">
+                                    <option value="1" {{$property->status == 1 ? 'selected' : ''}}>Approve</option>
+                                    <option value="0" {{$property->status == 0 ? 'selected' : ''}}>Pending</option>
+                                </select>
+                            </td>
                             <td>
                                 <img src="{{ asset($property->thumbnail_image) }}" alt="" width="100">
                             </td>
@@ -100,6 +107,30 @@
                                 </div>
                             </div>
                         </div>
+                        @endpush
+
+                        @push('scripts')
+                            <script>
+                                $(document).ready(function(){ 
+                                $('#statusChange__{{$property->id}}').change(function(){
+                                    let status = $(this).val();
+                                    let property_id = $('#option__{{$property->id}}').val();
+                                    // alert(status);
+                                    $.ajax({
+                                        url: "{{ route('property_status_change') }}",
+                                        type: "POST",
+                                        data: {
+                                            status : status,
+                                            property_id : property_id,
+                                        },
+                                        success: function(data){
+                                            console.log(data);
+                                            toastr.success(data.message)
+                                        },
+                                    });
+                                });
+                                });
+                            </script>
                         @endpush
 
                         @endforeach
