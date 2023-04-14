@@ -94,6 +94,11 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     Route::resource('subscribe', SubscribeController::class);
 
     Route::get('/membership', [MembershipController::class, 'index'])->name('subscription.index');
+    
+    Route::get('/weekly/membership', [MembershipController::class, 'weeklySubscription'])->name('weeklySubscription');
+    Route::get('/monthly/membership', [MembershipController::class, 'monthlySubscription'])->name('monthlySubscription');
+    Route::get('/yearly/membership', [MembershipController::class, 'yearlySubscription'])->name('yearlySubscription');
+
 });
 
 Route::group(['prefix' => 'agent', 'middleware'=> ['agent', 'auth'],], function() {

@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <h2>Weekly Plan</h2>
                     </div>
-                    <a class="btn btn-success" href="#">Buy Now</a>
+                    <a class="btn btn-success" href="{{ route('weeklySubscription') }}">Buy Now</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -26,7 +26,7 @@
                     <div class="card-body">
                         <h2>Monthly Plan</h2>
                     </div>
-                    <a class="btn btn-success" href="#">Buy Now</a>
+                    <a class="btn btn-success" href="{{ route('monthlySubscription') }}">Buy Now</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -34,7 +34,7 @@
                     <div class="card-body">
                         <h2>Yearly Plan</h2>
                     </div>
-                    <a class="btn btn-success" href="#">Buy Now</a>
+                    <a class="btn btn-success" href="{{route('yearlySubscription') }}">Buy Now</a>
                 </div>
             </div>
         </div>

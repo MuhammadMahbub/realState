@@ -555,4 +555,27 @@
             </div>
             <!-- Invite New Agent End -->
     @endpush
+
+
+    
+@push('modals')
+<div class="modal fade" id="myexamplemodal" tabindex="-1" aria-labelledby="myexamplemodal" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="form-group" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <h2>Do you want to purchase membership ?</h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <a href="{{ route('subscription.index') }}" class="btn btn-primary"> Buy Now </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endpush
 @endsection

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('member_id');
-            $table->string('date');
+            $table->string('membership_date');
+            $table->string('membership_status')->default('on')->comment('active=on, inactive=of');
             $table->timestamps();
         });
     }
