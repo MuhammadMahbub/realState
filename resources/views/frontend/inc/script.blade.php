@@ -1,3 +1,6 @@
+
+@stack('modals')
+
 <!-- Back to top -->
 <a href="#top" id="back-to-top" ><i class="fa fa-rocket"></i></a>
 
@@ -66,6 +69,13 @@
 
 @yield('scripts')
 
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 
 @if ($errors->any())
     @foreach ($errors->all() as $error)

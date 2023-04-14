@@ -4,8 +4,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
@@ -34,9 +37,19 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-Route::post('/search',[HomeController::class, 'searchProperty'])->name('searchProperty');
 Route::post('/subscribe',[HomeController::class, 'subscribe'])->name('subscribe');
 
+Route::post('/search',[HomeController::class, 'searchProperty'])->name('searchProperty');
+Route::get('/property/details/{id}',[HomeController::class, 'property_details'])->name('property.details');
+Route::get('/property/search/view',[HomeController::class, 'property_search_view'])->name('property_search_view');
+Route::get('/search/wise/property/view',[HomeController::class, 'searchWiseFilter'])->name('searchWiseFilter');
+Route::get('/property/filter/search/view',[HomeController::class, 'propertyFilter'])->name('propertyFilter');
+
+Route::post('/like/property', [LikeController::class, 'like_property'])->name('like_property');
+
+
+  // Contact Message
+Route::post('message/store', [MessageController::class, 'messageStore'])->name('message_store');
 Route::post('/verify_otp_code', [AdminController::class, 'verify_otp_code'])->name('verify_otp_code');
 
 Route::middleware('auth')->group(function () {
@@ -50,6 +63,7 @@ Route::middleware('auth')->group(function () {
 
     // ckeditor image show 
     Route::post('ckeditor/image/uplaod', [AdminController::class, 'ckeditor_image_uplaod'])->name('ckeditor_image.upload');
+  
     
 
 });
@@ -85,6 +99,9 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
 
     // Contact 
     Route::resource('contact', ContactController::class);
+
+    // Messages 
+    Route::resource('message', MessageController::class);
 
     // Settings 
     Route::resource('setting', SettingController::class);

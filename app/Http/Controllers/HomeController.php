@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+
     public function index(){
         $testmonials = Testimonial::all();
         $all_news = News::with('relationwithNewsCategory')->take(3)->get();
@@ -24,6 +25,11 @@ class HomeController extends Controller
         return view('frontend.home', compact('testmonials', 'all_news','properties', 'property_categories','property_types','property_location'));
     }
 
+    public function property_details($id)
+    {
+        $property = Property::find($id);
+        return view('frontend.property.property_details', compact('property'));
+    }
 
     public function searchProperty(Request $request)
     {
@@ -34,14 +40,41 @@ class HomeController extends Controller
             'location' => 'required',
         ]);
 
-        
-          return  Property::where('location', 'like', '%' . $request->location . '%')
-            ->where('category_id', $request->category_id)
-            ->where('property_type_id', $request->property_type_id)
-            ->get();
-                
+        return  Property::where('location', 'like', '%' . $request->location . '%')
+        ->where('category_id', $request->category_id)
+        ->where('property_type_id', $request->property_type_id)
+        ->get();         
     }
 
+    public function property_search_view(){
+        $properties = [];
+        return view('frontend.property.property_search', compact('properties'));
+    }
+
+    public function searchWiseFilter(Request $request)
+    {
+        $properties = Property::where('short_title', 'like', '%' . $request->searchValue . '%')
+        ->get();
+        
+        $view = view('frontend.includes.property_search',compact('properties'))->render();
+
+        return response()->json(['data'=>$view ]);         
+    }
+
+    public function propertyFilter(Request $request)
+    {
+        if($request->filetrValue == 'lowToHigh'){
+            $properties = Property::orderBy('price','ASC')->get();
+        }elseif($request->filetrValue == 'highToLow'){
+            $properties = Property::orderBy('price','DESC')->get();
+        }
+        
+        $view = view('frontend.includes.property_search',compact('properties'))->render();
+
+        return response()->json(['data'=>$view ]);         
+    }
+     
+    
     public function subscribe(Request $request)
     {
         // return $request;
@@ -57,10 +90,7 @@ class HomeController extends Controller
             return back()->with('success', 'Thanks for Subscription');
         }else{
             return back()->with('fail', 'You r not a registered person');
-        }
-        
-
-                
+        }         
     }
 
 }
