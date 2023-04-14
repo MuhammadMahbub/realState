@@ -21,6 +21,9 @@
             <div class="table-responsive active-projects style-1">
             <div class="tbl-caption">
                 <h4 class="heading mb-0">Category Listing</h4>
+                
+                <h2>{{ \Carbon\Carbon::now()->diffInDays(Auth::user()->created_at) }} </h2>
+             
                 <div>
                     <select>
                      <option>View All</option>
@@ -61,7 +64,7 @@
                                 <span>{{ $category->property_qty ?? '' }}</span>
                             </td>
                             <td>
-                                <span>{{!! $category->description ?? '' !!}</span>
+                                <span>{!! Str::limit($category->description, 20, '...') ?? '' !!}</span>
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -162,12 +165,12 @@
                         </div>
                         @endpush
 
-                        @push('scripts')
-                        <script>
-                            ClassicEditor
-                                .create( document.querySelector( '#editor__{{ $category->id }}' ) )
-                        </script>
-                        @endpush
+                            @push('scripts')
+                            <script>
+                                ClassicEditor
+                                    .create( document.querySelector( '#editor__{{ $category->id }}' ) )
+                            </script>
+                            @endpush
                         @endforeach
                         
                     </tbody>
@@ -178,6 +181,28 @@
     </div>
 </div>
 
+
+@push('modals')
+<div class="modal fade" id="myexamplemodal" tabindex="-1" aria-labelledby="myexamplemodal" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" class="form-group" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <h2>Do you want to purchase membership ?</h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-primary"> Buy Now </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endpush
+ 
 
 
 @push('modals')
@@ -231,6 +256,8 @@
 
 @push('scripts')
 <script>
+
+     
     $(document).ready(function(){
         @if($errors->has('category_name') || $errors->has('description') )
             $('#addCategory').modal('show');

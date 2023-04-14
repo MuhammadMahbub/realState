@@ -4,6 +4,14 @@
 
 
 <script type="text/javascript">
+
+     $(window).on('load', function(){
+            if({{ \Carbon\Carbon::now()->diffInDays(Auth::user()->created_at) }} > 62 ){
+                $("#myexamplemodal").modal('show')
+            }
+        })
+
+
     $(function() {
     
         var start = moment().subtract(29, 'days');
@@ -261,6 +269,7 @@
 
     {{-- data feather --}}
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <script>
       feather.replace({

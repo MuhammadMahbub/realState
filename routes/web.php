@@ -6,6 +6,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
@@ -91,6 +92,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     
     // Subscribe 
     Route::resource('subscribe', SubscribeController::class);
+
+    Route::get('/membership', [MembershipController::class, 'index'])->name('subscription.index');
 });
 
 Route::group(['prefix' => 'agent', 'middleware'=> ['agent', 'auth'],], function() {

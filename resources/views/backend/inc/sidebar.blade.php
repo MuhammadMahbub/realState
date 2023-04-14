@@ -105,7 +105,7 @@
                 <span class="nav-text">Products</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="subscription.html">Subscription</a></li>
+                    <li><a href="{{ route('subscription.index') }}">Subscription</a></li>
                     <li><a href="commission.html">Commission</a></li>
                 </ul>
             </li>
