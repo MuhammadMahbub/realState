@@ -67,6 +67,7 @@
 <!-- Custom-switcher Js-->
 <script src="{{asset('frontend')}}/assets/js/custom-switcher.js"></script>
 
+
 @yield('scripts')
 
 <script type="text/javascript">

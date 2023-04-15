@@ -2,7 +2,7 @@
 <h4>
     Property:::
     @foreach ($properties as $item)
-        <li>{{ $item->price }}</li>    
+        <li>{{ $item->price }}--{{ $item->created_at->format('d m') }}</li>    
     @endforeach
 </h4>
 
@@ -19,6 +19,10 @@
                     @php
                         $like_exist = App\Models\Like::where('property_id', 11)->where('user_id',Auth::id())->first();
                         $like_count = App\Models\Like::where('property_id', 11)->count();
+                        $rate_count = App\Models\Rating::where('property_id', 11)->count();
+                        $rate_exist = App\Models\Rating::where('property_id', 11)->where('user_id', Auth::id())->first();
+                        $total_rating = App\Models\Rating::where('property_id', 11)->sum('rate_count');
+                        $avg_rate = ($total_rating/$rate_count);
                     @endphp
                     <a href="javascript:void(0);" class="like_btn item-card9-icons1 wishlist" property-id="11" data-bs-toggle="tooltip" data-bs-placement="top" title="wishlist">
                         <span class="like_icon__11">
@@ -34,26 +38,29 @@
                 </div>
                 <div class="item-tags">
                     <div class="bg-success tag-option">For Sale </div>
-                    
                 </div>
                 <div class="item-trans-rating">
                     <div class="rating-stars block">
-                        <input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="3">
+                        <input type="number" readonly="readonly" class="rating-value star" name="rating-stars-value" value="{{ $rate_exist->rate_count + 1 ?? '' }}">
                         <div class="rating-stars-container">
-                            <div class="rating-star sm  ">
-                                <i class="fa fa-star"></i>
+                            <input type="hidden" name="property_id" class="property_id" value="11">
+                            <div class="rating-star sm">
+                                <i class="rateProperty fa fa-star" rate-value="1"></i>
                             </div>
                             <div class="rating-star sm  ">
-                                <i class="fa fa-star"></i>
+                                <i class="rateProperty fa fa-star" rate-value="2"></i>
                             </div>
                             <div class="rating-star sm  ">
-                                <i class="fa fa-star"></i>
+                                <i class="rateProperty fa fa-star" rate-value="3"></i>
                             </div>
                             <div class="rating-star sm ">
-                                <i class="fa fa-star"></i>
+                                <i class="rateProperty fa fa-star" rate-value="4"></i>
                             </div>
                             <div class="rating-star sm ">
-                                <i class="fa fa-star"></i>
+                                <i class="rateProperty fa fa-star" rate-value="5"></i>
+                            </div>
+                            <div class="rating-star sm ">
+                                <span class="ratePercent__11">{{ round($avg_rate, 1) }}</span>
                             </div>
                         </div>
                     </div>
@@ -901,33 +908,6 @@
     </div>
 </div>
 
-@section('scripts')
-    <script>
-        $('.like_btn').click(function(){
-            let property_id = $(this).attr('property-id');
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('like_property') }}",
-                type: "POST",
-                data: {
-                    property_id: property_id,
-                },
-                success: function(response){
-                    $(".likeCount__" + response.property_id).html(response.count);
-                    if (response.status == 400) {
-                        $('.like_icon__'+response.property_id).html(`<i class="fa fa fa-heart-o"></i>`);
-                        toastr.success("DisLiked");
-                    } else if (response.status == 200) {
-                        $('.like_icon__'+response.property_id).html(`<i class="fa fa fa-heart text-danger"></i>`);
-                        toastr.success("Liked");
-                    }
-
-                }
-            });
-        });
-    </script>
-@endsection
+{{-- @section('scripts') --}}
+    
+{{-- @endsection --}}
