@@ -63,7 +63,7 @@
                                       <i data-feather="more-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="{{ route('news.show', $news->slug) }}">View Details</a></li>
+                                      <li><a class="dropdown-item" href="{{ route('news_show', $news->slug) }}">View Details</a></li>
                                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editNews{{ $news->id }}">Edit</a></li>
                                       <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteNews{{ $news->id }}">Delete</a></li>
                                     </ul>

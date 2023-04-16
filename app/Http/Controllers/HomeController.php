@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+
     public function index(){
         $testmonials = Testimonial::all();
         $all_news = News::with('relationwithNewsCategory')->take(3)->get();
@@ -22,7 +23,6 @@ class HomeController extends Controller
         $property_types = PropertyType::all();
         $properties = Property::all();
         $property_location = DB::table('properties')->select('location')->distinct()->get();
-
         $all_users = User::all();
         $agent_list = []; // role 2
         $tenant_list = [] ; // role 3
@@ -47,8 +47,67 @@ class HomeController extends Controller
               
         } 
         return view('frontend.home', compact('testmonials', 'agent_list' , 'tenant_list', 'landlord_list', 'all_news','properties', 'property_categories','property_types','property_location'));
+
+        
+
     }
 
+    public function all_agent(){
+        // $all_agents = User::where('role', 2)->get();
+        $all_agents = [];
+
+        // return response()->json([
+        //     'all_agents' => $all_agents
+        // ]);
+
+        return view('frontend.agent',compact('all_agents'));
+    }
+
+    public function searchAgent(Request $request)
+    {
+      
+        $all_agents = User::where('role',2)->where('name', 'LIKE', '%' . $request->searchValue . '%')->get();
+        
+        $view = view('frontend.includes.agent_search',compact('all_agents'))->render();
+
+        return response()->json(['data'=>$view ]);
+        
+        // return response()->json([
+        //     'all_agents' => $all_agents
+        // ]);
+
+    }
+
+    public function agentFilter(Request $request)
+    {
+        if($request->filetrValue == 'active'){
+            $all_agents = User::where('role',2)->where('status', 1)->get();
+        }elseif($request->filetrValue == 'new'){
+            $all_agents = User::where('role',2)->latest()->take(1)->get();
+        }elseif($request->filetrValue == 'all'){
+            $all_agents = User::where('role',2)->latest()->get();
+        }
+        
+        $view = view('frontend.includes.agent_search',compact('all_agents'))->render();
+
+        return response()->json(['data'=>$view ]);         
+    }
+
+    public function property_details($slug)
+    {
+        $property = Property::where('slug',$slug)->first();
+        // $property = Property::find($slug);
+        $related_properties = Property::where('category_id', $property->category_id)->where('id', '!=', $property->id)->get();
+        $latest_properties = Property::latest()->take(5)->get();
+
+        // return response()->json([
+        //     'property' => $property,
+        //     'related_properties' => $related_properties,
+        //     'latest_properties' => $latest_properties,
+        // ]);
+
+        return view('frontend.property.property_details', compact('property','related_properties','latest_properties'));
+    }
 
     public function searchProperty(Request $request)
     {
@@ -59,14 +118,45 @@ class HomeController extends Controller
             'location' => 'required',
         ]);
 
-        
-          return  Property::where('location', 'like', '%' . $request->location . '%')
-            ->where('category_id', $request->category_id)
-            ->where('property_type_id', $request->property_type_id)
-            ->get();
-                
+        return  Property::where('location', 'like', '%' . $request->location . '%')
+        ->where('category_id', $request->category_id)
+        ->where('property_type_id', $request->property_type_id)
+        ->get();         
     }
 
+    public function property_search_view(){
+        $properties = [];
+        return view('frontend.property.property_search', compact('properties'));
+    }
+
+    public function searchWiseFilter(Request $request)
+    {
+        $properties = Property::where('short_title', 'like', '%' . $request->searchValue . '%')
+        ->get();
+        
+        $view = view('frontend.includes.property_search',compact('properties'))->render();
+
+        return response()->json(['data'=>$view ]);         
+    }
+
+    public function propertyFilter(Request $request)
+    {
+        if($request->filetrValue == 'latest'){
+            $properties = Property::latest()->get();
+        }elseif($request->filetrValue == 'oldest'){
+            $properties = Property::orderBy('created_at','ASC')->get();
+        }elseif($request->filetrValue == 'lowToHigh'){
+            $properties = Property::orderBy('price','ASC')->get();
+        }elseif($request->filetrValue == 'highToLow'){
+            $properties = Property::orderBy('price','DESC')->get();
+        }
+        
+        $view = view('frontend.includes.property_search',compact('properties'))->render();
+
+        return response()->json(['data'=>$view ]);         
+    }
+     
+    
     public function subscribe(Request $request)
     {
         // return $request;
@@ -82,10 +172,7 @@ class HomeController extends Controller
             return back()->with('success', 'Thanks for Subscription');
         }else{
             return back()->with('fail', 'You r not a registered person');
-        }
-        
-
-                
+        }         
     }
 
 }

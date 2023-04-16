@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use Illuminate\Support\Str;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,7 @@ class NewsController extends Controller
 
         $news->category_id = $request->category_id;
         $news->title = $request->title;
+        $news->slug = $news->category_id.'-'.Str::slug($request->title);
         $news->description = $request->description;
         $news->image = $last_image;
 

@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg mb-0">
                                             <select name="location" id="select-Categories14" class="form-control form-select br-md-0 select2">
-                                                <option value="" selected>location</option>
+                                                <option value="" selected>Location</option>
                                                 @foreach ($property_location as $location)
                                                     <option value="{{ $location->location ?? '' }}">{{ $location->location ?? '' }}</option>    
                                                 @endforeach
@@ -63,6 +63,9 @@
     <!--Sliders Section-->
 
 
+            {{-- @php
+                print_r($data)
+            @endphp --}}
     <!-- Categories-->
     <section class="sptb bg-white">
         <div class="container">
