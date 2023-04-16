@@ -21,6 +21,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\PreferredChoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -118,6 +119,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
 
     Route::get('/cancel/membership', [MembershipController::class, 'cancelMembership'])->name('cancel.membership');
 
+
+    Route::resource('preferred_choices', PreferredChoiceController::class);
  
 
 });
