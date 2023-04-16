@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('member_id');
             $table->string('membership_date');
-            $table->string('membership_status')->default('on')->comment('active=on, inactive=of');
+            $table->string("package_name");
+            $table->integer('amount');
+            $table->string('membership_status')->default('on')->comment('active=on, inactive=off');
             $table->timestamps();
         });
     }
