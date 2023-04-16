@@ -119,7 +119,6 @@ Route::group(['prefix' => 'landlord',"as"=>'landlord.', 'middleware'=> ['landlor
     Route::resource('property', PropertyController::class);
     Route::get('property/show/{slug}', [PropertyController::class, 'property_show'])->name('property_show');
     Route::resource('property_specification', PropertySpecificationController::class);
-
     Route::post('/choose/block', [LandlordController::class, 'choose_block'])->name('choose_block');
 });
 
@@ -131,25 +130,26 @@ Route::group(['prefix' => 'service_provider', 'middleware'=> ['service_provider'
     Route::get('/dashboard', [AdminController::class, 'service_provider_index'])->name('service_provider.dashboard');
 });
 
+
 // Route::group(['prefix' => 'auth', 'middleware'=> ['admin','landlord', 'auth'],], function() {
 //     Route::resource('property', PropertyController::class);
 // });
 
 
-    // SSLCOMMERZ Start
-    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
-    
-    Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
-    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
-    
-    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
-    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
-    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
-    
-    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
-    //SSLCOMMERZ END
-    
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
+
 
 
 require __DIR__.'/auth.php';

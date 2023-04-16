@@ -9,6 +9,7 @@ use App\Models\PropertyType;
 use Illuminate\Http\Request;
 use App\Models\PropertyCategory;
 use App\Models\Subscribe;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +22,31 @@ class HomeController extends Controller
         $property_types = PropertyType::all();
         $properties = Property::all();
         $property_location = DB::table('properties')->select('location')->distinct()->get();
-        return view('frontend.home', compact('testmonials', 'all_news','properties', 'property_categories','property_types','property_location'));
+
+        $all_users = User::all();
+        $agent_list = []; // role 2
+        $tenant_list = [] ; // role 3
+        $landlord_list = []; // role 4
+
+        foreach($all_users as $all_user){
+            
+            // check agent role
+            if($all_user->role === 2){
+                $agent_list[] = $all_user;
+            }
+
+            // check tenant role
+            if($all_user->role === 3){
+                $tenant_list[] = $all_user;
+            }
+
+            // check landlord role
+            if($all_user->role === 4){
+                $landlord_list[] = $all_news;
+            }
+              
+        } 
+        return view('frontend.home', compact('testmonials', 'agent_list' , 'tenant_list', 'landlord_list', 'all_news','properties', 'property_categories','property_types','property_location'));
     }
 
 
