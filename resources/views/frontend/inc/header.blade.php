@@ -144,9 +144,18 @@
 									<li>
 										<a href="{{ route('register') }}" class="text-dark"><i class="fa fa-user me-1"></i> <span>Register</span></a>
 									</li>
+									@auth
+									<li>
+										<a href="{{ route('logout') }}" class="text-dark" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-in me-1"></i> <span>Logout</span></a>
+										<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+											@csrf
+										</form>
+									</li>
+									@else
 									<li>
 										<a href="{{ route('login') }}" class="text-dark"><i class="fa fa-sign-in me-1"></i> <span>Login</span></a>
 									</li>
+									@endauth
 									
 								</ul>
 							</div>

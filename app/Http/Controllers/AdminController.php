@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
 use App\Models\User;
 use App\Models\OtpVerify;
 use App\Models\Property;
@@ -152,12 +153,6 @@ class AdminController extends Controller
             'users' => User::all()
         ]);
     }
-
-    // public function property_index(){
-    //     return view('backend.admin.property.index',[
-    //         'properties' => Property::latest()->get()
-    //     ]);
-    // }
     
     
     

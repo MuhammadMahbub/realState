@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->string('title');
-            $table->string('slug');
-            $table->string('image')->default('backend/news/default.jpg');
-            $table->text('description');
-            $table->integer('favourite_count')->nullable();
+            $table->bigInteger('user_id');
+            $table->bigInteger('property_id');
             $table->integer('like_count')->nullable();
             $table->timestamps();
         });
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('likes');
     }
 };

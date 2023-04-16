@@ -7,6 +7,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordController;
 use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
@@ -14,6 +16,7 @@ use App\Http\Controllers\PropertyCategoryController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertySpecificationController;
 use App\Http\Controllers\PropertyTypeController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\SubscribeController;
@@ -33,9 +36,23 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-Route::post('/search',[HomeController::class, 'searchProperty'])->name('searchProperty');
 Route::post('/subscribe',[HomeController::class, 'subscribe'])->name('subscribe');
+Route::get('/all/agents',[HomeController::class, 'all_agent'])->name('all_agent');
+Route::get('/search/agents',[HomeController::class, 'searchAgent'])->name('searchAgent');
+Route::get('/filter/agents',[HomeController::class, 'agentFilter'])->name('agentFilter');
 
+Route::post('/search/property',[HomeController::class, 'searchProperty'])->name('searchProperty');
+Route::get('/property/details/{slug}',[HomeController::class, 'property_details'])->name('property.details');
+Route::get('/property/search/view',[HomeController::class, 'property_search_view'])->name('property_search_view');
+Route::get('/search/wise/property/view',[HomeController::class, 'searchWiseFilter'])->name('searchWiseFilter');
+Route::get('/property/filter/search/view',[HomeController::class, 'propertyFilter'])->name('propertyFilter');
+
+Route::post('/like/property', [LikeController::class, 'like_property'])->name('like_property');
+Route::post('/rate/property', [RatingController::class, 'rate_property'])->name('rate_property');
+
+
+  // Contact Message
+Route::post('message/store', [MessageController::class, 'messageStore'])->name('message_store');
 Route::post('/verify_otp_code', [AdminController::class, 'verify_otp_code'])->name('verify_otp_code');
 
 Route::middleware('auth')->group(function () {
@@ -49,7 +66,6 @@ Route::middleware('auth')->group(function () {
 
     // ckeditor image show 
     Route::post('ckeditor/image/uplaod', [AdminController::class, 'ckeditor_image_uplaod'])->name('ckeditor_image.upload');
-    
 
 });
 
@@ -84,6 +100,9 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
 
     // Contact 
     Route::resource('contact', ContactController::class);
+
+    // Messages 
+    Route::resource('message', MessageController::class);
 
     // Settings 
     Route::resource('setting', SettingController::class);
