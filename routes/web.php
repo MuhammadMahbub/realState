@@ -6,6 +6,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewsCategoryController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\PropertySpecificationController;
 use App\Http\Controllers\PropertyTypeController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +34,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/test', function () {
-//     return view('test');
-// });
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
 Route::post('/subscribe',[HomeController::class, 'subscribe'])->name('subscribe');
@@ -110,6 +109,17 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     
     // Subscribe 
     Route::resource('subscribe', SubscribeController::class);
+
+    Route::get('/membership', [MembershipController::class, 'index'])->name('subscription.index');
+    
+    Route::get('/weekly/membership', [MembershipController::class, 'weeklySubscription'])->name('weeklySubscription');
+    Route::get('/monthly/membership', [MembershipController::class, 'monthlySubscription'])->name('monthlySubscription');
+    Route::get('/yearly/membership', [MembershipController::class, 'yearlySubscription'])->name('yearlySubscription');
+
+    Route::get('/cancel/membership', [MembershipController::class, 'cancelMembership'])->name('cancel.membership');
+
+ 
+
 });
 
 Route::group(['prefix' => 'agent', 'middleware'=> ['agent', 'auth'],], function() {
@@ -143,5 +153,22 @@ Route::group(['prefix' => 'service_provider', 'middleware'=> ['service_provider'
 // Route::group(['prefix' => 'auth', 'middleware'=> ['admin','landlord', 'auth'],], function() {
 //     Route::resource('property', PropertyController::class);
 // });
+
+
+    // SSLCOMMERZ Start
+    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+    
+    Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+    
+    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+    
+    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+    //SSLCOMMERZ END
+    
+
 
 require __DIR__.'/auth.php';
