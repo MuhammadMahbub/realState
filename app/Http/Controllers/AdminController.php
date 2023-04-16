@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commission;
 use App\Models\ContactMessage;
 use App\Models\User;
 use App\Models\OtpVerify;
@@ -166,6 +167,14 @@ class AdminController extends Controller
     }
     
     public function service_provider_index(){
+        // Commission 
+        Commission::create([
+            'user_id' => Auth::id(),
+            'price' => 200,
+            'percent' => 5,
+            'admin_fee' => round(200 * 5 / 100),
+        ]);
+
         return view('backend.service_provider.dashboard');
     }
 

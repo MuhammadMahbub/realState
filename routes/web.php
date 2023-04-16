@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandlordController;
@@ -67,6 +68,16 @@ Route::middleware('auth')->group(function () {
     // ckeditor image show 
     Route::post('ckeditor/image/uplaod', [AdminController::class, 'ckeditor_image_uplaod'])->name('ckeditor_image.upload');
 
+
+    // Subscription/Membership 
+    Route::get('/membership', [MembershipController::class, 'index'])->name('subscription.index');
+        
+    Route::get('/weekly/membership', [MembershipController::class, 'weeklySubscription'])->name('weeklySubscription');
+    Route::get('/monthly/membership', [MembershipController::class, 'monthlySubscription'])->name('monthlySubscription');
+    Route::get('/yearly/membership', [MembershipController::class, 'yearlySubscription'])->name('yearlySubscription');
+
+    Route::get('/cancel/membership', [MembershipController::class, 'cancelMembership'])->name('cancel.membership');
+
 });
 
 
@@ -110,14 +121,16 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     // Subscribe 
     Route::resource('subscribe', SubscribeController::class);
 
-    Route::get('/membership', [MembershipController::class, 'index'])->name('subscription.index');
-    
-    Route::get('/weekly/membership', [MembershipController::class, 'weeklySubscription'])->name('weeklySubscription');
-    Route::get('/monthly/membership', [MembershipController::class, 'monthlySubscription'])->name('monthlySubscription');
-    Route::get('/yearly/membership', [MembershipController::class, 'yearlySubscription'])->name('yearlySubscription');
-
-    Route::get('/cancel/membership', [MembershipController::class, 'cancelMembership'])->name('cancel.membership');
-
+    // subscription Manage 
+    Route::get('manage/subscription', [MembershipController::class, 'membership_manage'])->name('membership.manage');
+    Route::post('manage/subscription/store', [MembershipController::class, 'membership_store'])->name('membership_store');
+    Route::put('manage/subscription/update/{id}', [MembershipController::class, 'membership_update'])->name('membership_update');
+    Route::delete('manage/subscription/delete/{id}', [MembershipController::class, 'membership_destroy'])->name('membership_destroy');
+// commission Manage 
+    Route::get('manage/commission', [CommissionController::class, 'commission_manage'])->name('commission.manage');
+    Route::post('manage/commission/store', [CommissionController::class, 'commission_store'])->name('commission_store');
+    Route::put('manage/commission/update/{id}', [CommissionController::class, 'commission_update'])->name('commission_update');
+    Route::delete('manage/commission/delete/{id}', [CommissionController::class, 'commission_destroy'])->name('commission_destroy');
  
 
 });
@@ -155,19 +168,19 @@ Route::group(['prefix' => 'service_provider', 'middleware'=> ['service_provider'
 // });
 
 
-    // SSLCOMMERZ Start
-    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
-    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
-    
-    Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
-    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
-    
-    Route::post('/success', [SslCommerzPaymentController::class, 'success']);
-    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
-    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
-    
-    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
-    //SSLCOMMERZ END
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
     
 
 

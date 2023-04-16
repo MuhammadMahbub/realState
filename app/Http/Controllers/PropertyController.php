@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commission;
 use App\Models\MultiplePropertyImage;
 use App\Models\Property;
 use Illuminate\Support\Str;
@@ -48,10 +49,6 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        // foreach($request->file('multiple_image') as $imd){
-        //     echo $imd;
-        // }
-        // die;
         $request->validate([
             'category_id'=> 'required',
             'property_type_id'=> 'required',
@@ -104,6 +101,14 @@ class PropertyController extends Controller
             }
         }
 
+        // Commission 
+        Commission::create([
+            'user_id' => Auth::id(),
+            'price' => $property->price,
+            'percent' => 7,
+            'admin_fee' => round($property->price * 7 / 100),
+        ]);
+
         if(Auth::user()->role == 1){
             return redirect()->route('property.index')->with('success', 'Property Created');
         }else{
@@ -114,7 +119,7 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function property_show( $slug)
+    public function property_show($slug)
     {
         $property = Property::where('slug', $slug)->first();
 

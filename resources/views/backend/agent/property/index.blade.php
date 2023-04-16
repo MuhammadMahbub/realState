@@ -76,7 +76,7 @@
                                   </div>
                             </td>
                         </tr>
-                        @endpush
+                       
 
                         @push('scripts')
                         <script>
