@@ -689,7 +689,7 @@
                                     <i class="icon icon-people"></i>
                                 </div>
                                 <h5>Total Properties</h5>
-                                <h2 class="counter mb-0 font-weight-bold">3453</h2>
+                                <h2 class="counter mb-0 font-weight-bold">{{ count($properties) }}</h2>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -697,8 +697,8 @@
                                 <div class="counter-icon text-warning">
                                     <i class="icon icon-rocket"></i>
                                 </div>
-                                <h5>Total Landlords</h5>
-                                <h2 class="counter mb-0 font-weight-bold">0</h2>
+                                <h5>Total Landlords</h5> 
+                                <h2 class="counter mb-0 font-weight-bold">{{ count($landlord_list) }}</h2>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -707,7 +707,7 @@
                                     <i class="icon icon-docs"></i>
                                 </div>
                                 <h5>Total Agents</h5>
-                                <h2 class="counter mb-0 font-weight-bold">0</h2>
+                                <h2 class="counter mb-0 font-weight-bold">{{ count($agent_list) }}</h2>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -716,7 +716,7 @@
                                     <i class="icon icon-emotsmile"></i>
                                 </div>
                                 <h5>Total Tenants</h5>
-                                <h2 class="counter font-weight-bold mb-0">0</h2>
+                                <h2 class="counter font-weight-bold mb-0">{{ count($tenant_list) }}</h2>
                             </div>
                         </div>
                     </div>

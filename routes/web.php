@@ -22,6 +22,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\PreferredChoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -121,6 +122,16 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     // Subscribe 
     Route::resource('subscribe', SubscribeController::class);
 
+    Route::get('/membership', [MembershipController::class, 'index'])->name('subscription.index');
+    
+    Route::get('/weekly/membership', [MembershipController::class, 'weeklySubscription'])->name('weeklySubscription');
+    Route::get('/monthly/membership', [MembershipController::class, 'monthlySubscription'])->name('monthlySubscription');
+    Route::get('/yearly/membership', [MembershipController::class, 'yearlySubscription'])->name('yearlySubscription');
+
+    Route::get('/cancel/membership', [MembershipController::class, 'cancelMembership'])->name('cancel.membership');
+
+
+    Route::resource('preferred_choices', PreferredChoiceController::class);
     // subscription Manage 
     Route::get('manage/subscription', [MembershipController::class, 'membership_manage'])->name('membership.manage');
     Route::post('manage/subscription/store', [MembershipController::class, 'membership_store'])->name('membership_store');
@@ -131,6 +142,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     Route::post('manage/commission/store', [CommissionController::class, 'commission_store'])->name('commission_store');
     Route::put('manage/commission/update/{id}', [CommissionController::class, 'commission_update'])->name('commission_update');
     Route::delete('manage/commission/delete/{id}', [CommissionController::class, 'commission_destroy'])->name('commission_destroy');
+
  
 
 });
@@ -151,7 +163,6 @@ Route::group(['prefix' => 'landlord',"as"=>'landlord.', 'middleware'=> ['landlor
     Route::resource('property', PropertyController::class);
     Route::get('property/show/{slug}', [PropertyController::class, 'property_show'])->name('property_show');
     Route::resource('property_specification', PropertySpecificationController::class);
-
     Route::post('/choose/block', [LandlordController::class, 'choose_block'])->name('choose_block');
 });
 
@@ -162,6 +173,7 @@ Route::group(['prefix' => 'contractor', 'middleware'=> ['contractor', 'auth'],],
 Route::group(['prefix' => 'service_provider', 'middleware'=> ['service_provider', 'auth'],], function() {
     Route::get('/dashboard', [AdminController::class, 'service_provider_index'])->name('service_provider.dashboard');
 });
+
 
 // Route::group(['prefix' => 'auth', 'middleware'=> ['admin','landlord', 'auth'],], function() {
 //     Route::resource('property', PropertyController::class);
@@ -181,7 +193,7 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
-    
+
 
 
 require __DIR__.'/auth.php';
