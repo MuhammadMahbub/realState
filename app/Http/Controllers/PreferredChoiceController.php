@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PreferredRequest;
 use App\Models\PreferredChoice;
 use Illuminate\Http\Request;
 
@@ -21,15 +22,16 @@ class PreferredChoiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.admin.preferred_choices.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PreferredRequest $request)
     {
-        //
+        PreferredChoice::insert($request->except('_token'));
+        return back();
     }
 
     /**
@@ -45,7 +47,8 @@ class PreferredChoiceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = PreferredChoice::findOrFail($id);
+        return view('backend.admin.preferred_choices.edit', compact('data'));
     }
 
     /**
@@ -53,14 +56,17 @@ class PreferredChoiceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        PreferredChoice::findOrFail($id)->update($request->except('_token'));
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete($id)
     {
-        //
+        PreferredChoice::findOrFail($id)->delete();
+        return back();
+
     }
 }

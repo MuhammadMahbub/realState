@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\PreferredChoice;
 use App\Models\Property;
 use App\Models\Testimonial;
 use App\Models\PropertyType;
@@ -18,6 +19,7 @@ class HomeController extends Controller
 
     public function index(){
         $testmonials = Testimonial::all();
+        $preferred_choices =  PreferredChoice::all();
         $all_news = News::with('relationwithNewsCategory')->take(3)->get();
         $property_categories = PropertyCategory::all();
         $property_types = PropertyType::all();
@@ -53,7 +55,9 @@ class HomeController extends Controller
     }
 
     public function all_agent(){
+
         // $all_agents = User::where('role', 2)->get();
+
         $all_agents = [];
 
         // return response()->json([

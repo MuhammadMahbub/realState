@@ -121,6 +121,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
 
 
     Route::resource('preferred_choices', PreferredChoiceController::class);
+    Route::get('preferred_choices/delete/{id}', [PreferredChoiceController::class, 'delete'])->name('preferred_choices.delete');
  
 
 });
