@@ -48,7 +48,7 @@
                         @foreach ($membership as $membership)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $membership->membership_type ?? '' }}</td>
+                            <td>{{ $membership->membership_type == 2 ? 'Agent' : 'Landlord' }}</td>
                             <td>{{ $membership->percent ?? '' }}</td>
                             
                             <td>
@@ -78,13 +78,8 @@
                                         @method("PUT")
                                         <div class="modal-body">
                                             
-                            
-                                            <div class="form-group mt-2">
-                                                <label for=""> MemberShip Type<span class="text-danger">*</span></label>
-                                                <input type="text" value="{{ $membership->membership_type }}" name="membership_type" placeholder="" class="form-control">  
-                                                @error('membership_type')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
+                                            <div class="form-group">
+                                                <label for="">MemberShip Type -- {{ $membership->membership_type == 2 ? 'Agent' : 'Landlord' }}</label>
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for=""> Percent<span class="text-danger">*</span></label>
@@ -156,13 +151,17 @@
                             @csrf
                             <div class="modal-body">
                     
-                                <div class="form-group mt-2">
-                                    <label for="">Membership Type<span class="text-danger">*</span></label>
-                                    <input type="text"  name="membership_type" placeholder="Membership Type" class="form-control">  
+                                <div class="form-group">
+                                    <label for="">MemberShip Type<span class="text-danger">*</span></label>
+                                    <select name="membership_type" id="" class="form-control">
+                                        <option value selected>--select one--</option>
+                                        <option value="2">Agent</option>    
+                                        <option value="4">Landlord</option>     
+                                    </select>  
                                     @error('membership_type')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
-                                </div> 
+                                </div>
                                 <div class="form-group mt-2">
                                     <label for="">Percent<span class="text-danger">*</span></label>
                                     <input type="text"  name="percent" placeholder="7" class="form-control">  

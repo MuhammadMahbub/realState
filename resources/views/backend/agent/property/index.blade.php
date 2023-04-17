@@ -52,13 +52,15 @@
                             <td>{{ $property->short_title ?? ''}}</td>
                             <td>{{ $property->relationwithPropertyCategory->category_name ?? ''}}</td>
                             <td>{{ $property->relationwithPropertyType->type_name ?? ''}}</td>
-                            {{-- <td>{{ $property->status == 0 ? 'Pending' : 'Active' }}</td> --}}
                             <td>
-                                <input type="hidden" id="option__{{$property->id}}" value="{{$property->id}}">
-                                <select class="select-opt form-control p-1 optionChange" id="statusChange__{{$property->id}}">
-                                    <option value="1" {{$property->agent_status == 1 ? 'selected' : ''}}>Owned</option>
-                                    <option value="0" {{$property->agent_status == 0 ? 'selected' : ''}}>Requesting</option>
-                                </select>
+                                <input type="hidden" id="propertyID__{{$property->id}}" value="{{$property->id}}">
+                                @if ($property->agent_status == 2)
+                                    Requested/<a href="javascript:void(0)" class="text-danger" id="cancelRequest__{{$property->id}}">Cancel</a>
+                                @elseif ($property->agent_status == 1)
+                                    Owned/<a href="javascript:void(0)" class="text-danger" id="cancelRequest__{{$property->id}}">Cancel</a>
+                                @else
+                                    <button class="btn btn-primary btn-sm" id="sendRequest__{{$property->id}}">Request</button>
+                                @endif
                             </td>
                             <td>
                                 <img src="{{ asset($property->thumbnail_image) }}" alt="" width="100">
@@ -77,27 +79,43 @@
                             </td>
                         </tr>
                        
-
                         @push('scripts')
                         <script>
                             $(document).ready(function(){ 
-                            $('#statusChange__{{$property->id}}').change(function(){
-                                let status = $(this).val();
-                                let property_id = $('#option__{{$property->id}}').val();
-                                // alert(property_id);
-                                $.ajax({
-                                    url: "{{ route('request_owned') }}",
-                                    type: "POST",
-                                    data: {
-                                        property_id : property_id,
-                                        status : status,
-                                    },
-                                    success: function(data){
-                                        console.log(data);
-                                        toastr.success(data.message)
-                                    },
+                                $('#sendRequest__{{$property->id}}').click(function(){
+                                    let property_id = $('#propertyID__{{$property->id}}').val();
+                                    // alert(property_id);
+                                    $.ajax({
+                                        url: "{{ route('send_request') }}",
+                                        type: "POST",
+                                        data: {
+                                            property_id : property_id,
+                                        },
+                                        success: function(data){
+                                            console.log(data);
+                                            toastr.success(data.message)
+                                            location.reload()
+                                        },
+                                    });
                                 });
-                            });
+
+                                $('#cancelRequest__{{$property->id}}').click(function(){
+                                    
+                                    let property_id = $('#propertyID__{{$property->id}}').val();
+                                    // alert(property_id);
+                                    $.ajax({
+                                        url: "{{ route('cancel_request') }}",
+                                        type: "POST",
+                                        data: {
+                                            property_id : property_id,
+                                        },
+                                        success: function(data){
+                                            console.log(data);
+                                            toastr.success(data.message)
+                                            location.reload()
+                                        },
+                                    });
+                                });
                             });
                         </script>
                         @endpush

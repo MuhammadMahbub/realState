@@ -18,6 +18,10 @@ class MembershipController extends Controller
 
     public function membership_store(Request $request)
     {
+        $request->validate([
+            'percent' => 'required'
+        ]);
+
        $manage_membership = new ManageMembership();
 
        $manage_membership->membership_type = $request->membership_type;
@@ -30,9 +34,12 @@ class MembershipController extends Controller
 
     public function membership_update(Request $request, $id)
     {
+        $request->validate([
+            'percent' => 'required'
+        ]);
+
        $manage_membership = ManageMembership::findOrFail($id);
 
-       $manage_membership->membership_type = $request->membership_type;
        $manage_membership->percent = $request->percent;
 
        $manage_membership->save();

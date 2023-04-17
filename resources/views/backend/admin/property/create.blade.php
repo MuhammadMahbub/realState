@@ -112,25 +112,5 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function(){
-        $("#add_btn").click(function(){
-            let data = `
-                <div class="row main-div mt-2">
-                    <div class="col-md-10">
-                        <input type="text" name="multiple_feature_image[]"  placeholder="Image Live Link" class="form-control">
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" class="remove_btn">&times;</button>
-                    </div>
-                </div> 
-            `;
-            $(".new_data").append(data);
-        })
 
-        $(document).on('click', '.remove_btn', function(){
-            $(this).closest(".main-div").remove();
-        }) 
-    })
-</script>
 @endpush

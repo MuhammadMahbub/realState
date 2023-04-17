@@ -126,7 +126,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth']], function()
     Route::post('manage/subscription/store', [MembershipController::class, 'membership_store'])->name('membership_store');
     Route::put('manage/subscription/update/{id}', [MembershipController::class, 'membership_update'])->name('membership_update');
     Route::delete('manage/subscription/delete/{id}', [MembershipController::class, 'membership_destroy'])->name('membership_destroy');
-// commission Manage 
+    // commission Manage 
     Route::get('manage/commission', [CommissionController::class, 'commission_manage'])->name('commission.manage');
     Route::post('manage/commission/store', [CommissionController::class, 'commission_store'])->name('commission_store');
     Route::put('manage/commission/update/{id}', [CommissionController::class, 'commission_update'])->name('commission_update');
@@ -139,7 +139,8 @@ Route::group(['prefix' => 'agent', 'middleware'=> ['agent', 'auth'],], function(
     Route::get('/dashboard', [AgentController::class, 'agent_index'])->name('agent.dashboard');
     Route::get('/property', [AgentController::class, 'property_index'])->name('agent_property.index');
     Route::get('/property/show/{id}', [PropertyController::class, 'show'])->name('property.show');
-    Route::post('/request/owned', [AgentController::class, 'request_owned'])->name('request_owned');
+    Route::post('/send/request', [AgentController::class, 'send_request'])->name('send_request');
+    Route::post('/cancel/request', [AgentController::class, 'cancel_request'])->name('cancel_request');
 });
 
 Route::group(['prefix' => 'tenant', 'middleware'=> ['tenant', 'auth'],], function() {
@@ -153,6 +154,8 @@ Route::group(['prefix' => 'landlord',"as"=>'landlord.', 'middleware'=> ['landlor
     Route::resource('property_specification', PropertySpecificationController::class);
 
     Route::post('/choose/block', [LandlordController::class, 'choose_block'])->name('choose_block');
+    Route::post('/accept/request', [LandlordController::class, 'accept_request'])->name('accept_request');
+    Route::post('/decline/request', [LandlordController::class, 'decline_request'])->name('decline_request');
 });
 
 Route::group(['prefix' => 'contractor', 'middleware'=> ['contractor', 'auth'],], function() {

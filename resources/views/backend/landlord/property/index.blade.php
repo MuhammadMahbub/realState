@@ -42,6 +42,7 @@
                             <th>Category Name</th>
                             <th>Property Type</th>
                             <th>Status</th>
+                            <th>Requested</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
@@ -53,6 +54,13 @@
                             <td>{{ $property->relationwithPropertyCategory->category_name ?? ''}}</td>
                             <td>{{ $property->relationwithPropertyType->type_name ?? ''}}</td>
                             <td>{{ $property->status == 0 ? 'Pending' : 'Active' }}</td>
+                            <td>
+                                @if ($property->agent_status == 2)
+                                    <input type="hidden" id="propertyID__{{$property->id}}" value="{{$property->id}}">
+                                    <button class="btn btn-primary btn-sm" id="acceptAgent__{{ $property->id }}">Accept</button>
+                                    <button class="btn btn-danger btn-sm" id="declineAgent__{{ $property->id }}">Decline</button>
+                                @endif
+                            </td>
                             <td>
                                 <img src="{{ asset($property->thumbnail_image) }}" alt="" width="100">
                             </td>
@@ -98,6 +106,46 @@
                                 </div>
                             </div>
                         </div>
+                        @endpush
+
+                        @push('scripts')
+                        <script>
+                            $(document).ready(function(){ 
+                                $('#acceptAgent__{{$property->id}}').click(function(){
+                                    let property_id = $('#propertyID__{{$property->id}}').val();
+                                    // alert(agent_id);
+                                    $.ajax({
+                                        url: "{{ route('landlord.accept_request') }}",
+                                        type: "POST",
+                                        data: {
+                                            property_id : property_id,
+                                        },
+                                        success: function(data){
+                                            console.log(data);
+                                            toastr.success(data.message)
+                                            location.reload()
+                                        },
+                                    });
+                                });
+
+                                $('#declineAgent__{{$property->id}}').click(function(){
+                                    let property_id = $('#propertyID__{{$property->id}}').val();
+                                    // alert(property_id);
+                                    $.ajax({
+                                        url: "{{ route('landlord.decline_request') }}",
+                                        type: "POST",
+                                        data: {
+                                            property_id : property_id,
+                                        },
+                                        success: function(data){
+                                            console.log(data);
+                                            toastr.success(data.message)
+                                            location.reload()
+                                        },
+                                    });
+                                });
+                            });
+                        </script>
                         @endpush
 
                         @endforeach

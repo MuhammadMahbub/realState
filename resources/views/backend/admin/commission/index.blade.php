@@ -5,21 +5,27 @@
 @section('breadcrumb')
 <div class="page-titles">
     <ol class="breadcrumb">
-        <li><h5 class="bc-title">commission </h5></li>
+        <li><h5 class="bc-title">Commission </h5></li>
     </ol>
     <a href="#" class="btn btn-primary btn-sm">Wallet Ballance: $500</a>
-    <a href="add-listing.html" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addcommission">Add commission Type</a>
+    <div>
+        <a href="" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addcommission">Add Commission Type</a>
+    <a href="" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addcommissionUser"> Commission for Individual User</a>
+    </div>
 </div>
 @endsection
 
 @section('content')
+@php
+    $users = App\Models\User::all();
+@endphp
 
 <div class="col-xl-12">
     <div class="card">
         <div class="card-body p-0">
             <div class="table-responsive active-projects style-1">
             <div class="tbl-caption">
-                <h4 class="heading mb-0">commission Listing</h4>
+                <h4 class="heading mb-0">Commission Listing</h4>
                 <div>
                     <select>
                      <option>View All</option>
@@ -39,7 +45,8 @@
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>commission Type</th>
+                            <th>Commission Type</th>
+                            <th>User</th>
                             <th>Percent</th>
                             <th>Actions</th>
                         </tr>
@@ -48,7 +55,8 @@
                         @foreach ($commission as $commission)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $commission->commission_type ?? '' }}</td>
+                            <td>{{ $commission->commission_type ?? 'N/A' }}</td>
+                            <td>{{ App\Models\User::find($commission->user_id)->email ?? 'N/A' }}</td>
                             <td>{{ $commission->percent ?? '' }}</td>
                             
                             <td>
@@ -78,14 +86,16 @@
                                         @method("PUT")
                                         <div class="modal-body">
                                             
-                            
-                                            <div class="form-group mt-2">
-                                                <label for=""> commission Type<span class="text-danger">*</span></label>
-                                                <input type="text" value="{{ $commission->commission_type }}" name="commission_type" placeholder="" class="form-control">  
-                                                @error('commission_type')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
+                                            @if ($commission->commission_type != NULL)
+                                                <div class="form-group mt-2">
+                                                    <label for=""> Commission Type -- {{ $commission->commission_type }}</label>
+                                                </div>    
+                                            @else
+                                                <div class="form-group mt-2">
+                                                    <label for=""> User -- {{ App\Models\User::find($commission->user_id)->email }}</label>
+                                                </div>
+                                            @endif
+                                            
                                             <div class="form-group mt-2">
                                                 <label for=""> Percent<span class="text-danger">*</span></label>
                                                 <input type="text" value="{{ $commission->percent }}" name="percent" placeholder="" class="form-control">  
@@ -134,7 +144,6 @@
                         </div>
                         @endpush
 
-
                         @endforeach
                         
                     </tbody>
@@ -155,14 +164,63 @@
                         <form action="{{ route('commission_store') }}" method="post" class="form-group" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-body">
-                    
-                                <div class="form-group mt-2">
-                                    <label for="">commission Type<span class="text-danger">*</span></label>
-                                    <input type="text"  name="commission_type" placeholder="commission Type" class="form-control">  
+                                <div class="form-group">
+                                    <label for="">Commission Type<span class="text-danger">*</span></label>
+                                    <select name="commission_type" id="" class="form-control">
+                                        <option value selected>--select one--</option>
+                                        <option value="2">Agent Support </option>    
+                                        <option value="4">Property Management  </option>    
+                                        <option value="6">Service Provider referrals  </option>    
+                                        <option value="5">Contractor referrals  </option>    
+                                    </select>  
                                     @error('commission_type')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
+                                </div>
+                                 
+                                <div class="form-group mt-2">
+                                    <label for="">Percent<span class="text-danger">*</span></label>
+                                    <input type="text"  name="percent" placeholder="7" class="form-control">  
+                                    @error('percent')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div> 
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endpush
+        @push('modals')
+            <!-- commission Add Modal -->
+            <div class="modal fade" id="addcommissionUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">commission Type </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('commission_store') }}" method="post" class="form-group" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="">Commission Individual User<span class="text-danger">*</span></label>
+                                    <select name="user_id" id="" class="form-control">
+                                        <option value selected>--select one--</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->email }}</option>
+                                        @endforeach 
+                                    </select>  
+                                    @error('user_id')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                 
                                 <div class="form-group mt-2">
                                     <label for="">Percent<span class="text-danger">*</span></label>
                                     <input type="text"  name="percent" placeholder="7" class="form-control">  

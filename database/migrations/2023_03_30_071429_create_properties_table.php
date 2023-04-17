@@ -26,7 +26,8 @@ return new class extends Migration
             $table->string('property_id')->nullable();
             $table->longText('description');
             $table->boolean('status')->default(false);
-            $table->boolean('agent_status')->default(false);
+            $table->boolean('agent_status')->nullable();
+            $table->boolean('agent_id')->nullable();
             $table->timestamps();
         });
     }

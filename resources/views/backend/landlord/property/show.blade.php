@@ -70,8 +70,8 @@
                 <tr>
                     <th>Multi Images</th>
                     <td>
-                        @foreach (json_decode($property->multiple_feature_image) as $image)
-                            <img src="{{ $image }}" alt="" width="200">
+                        @foreach ($property->relationwithMultipleImage as $img)
+                            <img src="{{ asset($img->multiple_image) }}" alt="" width="200">
                         @endforeach
                     </td>
                 </tr>

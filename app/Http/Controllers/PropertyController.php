@@ -91,7 +91,6 @@ class PropertyController extends Controller
                 $path = 'backend/property/';
                 $multiple_image = $path.$image_ext;
                 $multi_image->move( $path, $image_ext);
-                
 
                 MultiplePropertyImage::insert([
                     'property_id' => $property->id,

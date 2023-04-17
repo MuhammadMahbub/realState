@@ -113,8 +113,8 @@
                 <span class="nav-text">Membership</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('membership.manage') }}">Membership Manage</a></li>
-                    <li><a href="{{ route('commission.manage') }}">Commission Manage</a></li>
+                    <li><a href="{{ route('membership.manage') }}">Manage Membership</a></li>
+                    <li><a href="{{ route('commission.manage') }}">Manage Commission</a></li>
                 </ul>
             </li>
 
