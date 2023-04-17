@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('manage_memberships', function (Blueprint $table) {
             $table->id();
-            $table->string('membership_type');
+            $table->integer('membership_type')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('percent');
             $table->timestamps();
         });

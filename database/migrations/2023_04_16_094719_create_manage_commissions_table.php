@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('manage_commissions', function (Blueprint $table) {
             $table->id();
-            $table->string('commission_type');
+            $table->integer('commission_type')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('percent');
             $table->timestamps();
         });
