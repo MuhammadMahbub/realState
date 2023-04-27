@@ -343,10 +343,13 @@
                 <span class="nav-text">Dashboard</span>
                 </a>
             </li>
-            @endif
+        @endif
         </ul>
         <div class="help-desk">
-            <a href="{{ route('logout') }}" class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
+            <a href="{{ route('chat') }}" class="btn btn-primary">Chat</a> 
+        </div>
+        <div class="help-desk">
+            <a href="{{ route('logout') }}" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>

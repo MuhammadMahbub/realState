@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -77,6 +78,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/yearly/membership', [MembershipController::class, 'yearlySubscription'])->name('yearlySubscription');
 
     Route::get('/cancel/membership', [MembershipController::class, 'cancelMembership'])->name('cancel.membership');
+    
+    
+    // Chat 
+    Route::get('/chat', [ChatController::class, 'chat'])->name('chat');
+
+    // message
+    Route::post('/get/message', [ChatController::class, 'get_message'])->name('get.message');
+    Route::post('/get/message/render', [ChatController::class, 'getMessageRender'])->name('get.message.render');
+
+
 
 });
 
