@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
     // message
     Route::post('/get/message', [ChatController::class, 'get_message'])->name('get.message');
     Route::post('/get/message/render', [ChatController::class, 'getMessageRender'])->name('get.message.render');
+    Route::post('/get/render/message', [ChatController::class, 'get_render_message'])->name('get_render_message');
 
 
 

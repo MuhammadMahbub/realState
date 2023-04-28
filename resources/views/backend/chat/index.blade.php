@@ -67,61 +67,43 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="list-group-item list-group-item-action border-0">
-                            <div class="d-flex align-items-start">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-                                <div class="flex-grow-1 ml-3">
-                                    Sharon Lessman
-                                    <div class="small"><span class="fas fa-circle chat-online"></span> What makes it...</div>
+                        @foreach ($all_users as $user)
+                            <a href="#" class="list-group-item list-group-item-action border-0">
+                                <div class="d-flex align-items-start">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mx-1" alt="Sharon Lessman" width="40" height="40">
+                                    <div class="flex-grow-1 mx-2" id="messageToUser__{{ $user->id }}" data-id="{{ $user->id }}">
+                                        {{ $user->name ?? '' }}
+                                        <div class="small"><span class="fas fa-circle chat-online"></span> {{ $user->id ?? '' }}...</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action border-0">
-                            <div class="d-flex align-items-start">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="rounded-circle mr-1" alt="Christina Mason" width="40" height="40">
-                                <div class="flex-grow-1 ml-3">
-                                    Christina Mason
-                                    <div class="small"><span class="fas fa-circle chat-offline"></span> How much?...</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action border-0">
-                            <div class="d-flex align-items-start">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle mr-1" alt="Fiona Green" width="40" height="40">
-                                <div class="flex-grow-1 ml-3">
-                                    Fiona Green
-                                    <div class="small"><span class="fas fa-circle chat-offline"></span> Are you there...</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action border-0">
-                            <div class="d-flex align-items-start">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle mr-1" alt="Doris Wilder" width="40" height="40">
-                                <div class="flex-grow-1 ml-3">
-                                    Doris Wilder
-                                    <div class="small"><span class="fas fa-circle chat-offline"></span> What this special...</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action border-0">
-                            <div class="d-flex align-items-start">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="rounded-circle mr-1" alt="Haley Kennedy" width="40" height="40">
-                                <div class="flex-grow-1 ml-3">
-                                    Haley Kennedy
-                                    <div class="small"><span class="fas fa-circle chat-offline"></span> No, i don't need it...</div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action border-0">
-                            <div class="d-flex align-items-start">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Jennifer Chang" width="40" height="40">
-                                <div class="flex-grow-1 ml-3">
-                                    Jennifer Chang
-                                    <div class="small"><span class="fas fa-circle chat-offline"></span> How do you think...</div>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
 
+                            @push('scripts')
+                                <script>
+                                    $(document).ready(function() {
+                                        
+                                        $('#messageToUser__{{ $user->id }}').click(function(){
+                                            var user_id= $(this).attr('data-id')
+                                            // console.log(data_id);
+                                            
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: "{{ route('get_render_message') }}",
+                                                data: {
+                                                    user_id: user_id,
+                                                },
+                                                success: function(data) {
+                                                    console.log(data);
+                                                    $('.get_chat_dropdown').html(data.data)
+                                                }
+                                            })
+                                        })
+                                    })
+                                </script>   
+                            @endpush
+
+                        @endforeach
+                        
                         <hr class="d-block d-lg-none mt-1 mb-0">
                     </div>
 
@@ -132,7 +114,7 @@
                                     <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
                                 </div>
                                 <div class="flex-grow-1 pl-3">
-                                    <strong>Sharon Lessman</strong>
+                                    <strong>Name </strong>
                                     <div class="text-muted small"><em>Typing...</em></div>
                                 </div>
                                 <div>
@@ -167,14 +149,13 @@
 @endsection
 
 
-
 @push('scripts')
 <script>
     $(document).ready(function() {
 
-        setInterval(() => {
-            renderReply()
-        }, 1000);
+        // setInterval(() => {
+        //     renderReply()
+        // }, 1000);
 
         $('.message_submit').click(function() {
 
@@ -192,6 +173,7 @@
                     // $("html, body").animate({
                     //     scrollTop: $('html, body').get(0).scrollHeight
                     // }, 1000);
+                    
                 }
             })
         });
